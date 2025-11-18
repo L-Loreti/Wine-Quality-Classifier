@@ -19,7 +19,6 @@ wine = wine.drop(['Id'], axis = 1)
 print(wine.info())
 print(wine.duplicated().sum())
 '''
-
 # Let's look at the quantity of data for each class
 '''
 plt.hist(wine['quality'])
@@ -101,7 +100,7 @@ print(VIF)
 ############################################################
 # PEARSON CORRELATION MATRIX AFTER FEATURES TRANSFORMATION #
 ############################################################
-
+'''
 # Pearson correlation coefficient matrix
 corr = wine.corr()
 
@@ -116,7 +115,7 @@ mask2 = abs(corr) < threshold
 sns.heatmap(corr, mask = mask1 | mask2, cmap='inferno', vmin = -1, vmax=1, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
 plt.show()
-
+'''
 #############################################
 # SCATTER PLOTS FOR ALL FEATURES AND TARGET #
 #############################################
@@ -150,4 +149,10 @@ for i in range(n_rows):
 
 plt.tight_layout()
 plt.show()
+'''
+###########################################
+# CREATE CSV FILE WITH MODIFIED DATAFRAME #
+###########################################
+'''
+wine.to_csv('wine_modified.csv', index=False)
 '''
