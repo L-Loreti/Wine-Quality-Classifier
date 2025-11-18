@@ -19,4 +19,5 @@
 [18/11/2025] Término da análise exploratória.
 	     Seleção das melhores features com o forward feature
 	     selector.
-
+	     Início do treinamento dos modelos (leitura das melhores
+	     features em um arquivo .txt)
