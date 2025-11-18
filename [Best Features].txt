@@ -1,0 +1,14 @@
+LDA, 1, percentage of alcohol density
+LDA, 2, total acidity, percentage of alcohol density
+LDA, 3, residual sugar, total acidity, percentage of alcohol density
+LDA, 4, residual sugar, total acidity, free sulfur dioxide percentage, percentage of alcohol density
+LDA, 5, residual sugar, chlorides, total acidity, free sulfur dioxide percentage, percentage of alcohol density
+LDA, 6, residual sugar, chlorides, sulphates, total acidity, free sulfur dioxide percentage, percentage of alcohol density
+LDA, 7, residual sugar, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density
+GaussianNB, 1, percentage of alcohol density
+GaussianNB, 2, sulphates, percentage of alcohol density
+GaussianNB, 3, chlorides, sulphates, percentage of alcohol density
+GaussianNB, 4, chlorides, sulphates, total acidity, percentage of alcohol density
+GaussianNB, 5, chlorides, sulphates, total acidity, citric acid percentage, percentage of alcohol density
+GaussianNB, 6, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density
+GaussianNB, 7, residual sugar, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density

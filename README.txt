@@ -15,4 +15,8 @@
 		de variáveis, nenhuma feature apresentava grande
 		correlação com o target, somente a porcentagem de
 		densidade de álcool tem uma correlação maior, o 
-		que pode dificultar o aprendizado dos algoritmos.
+		que pode dificultar o aprendizado dos algoritmo.
+[18/11/2025] Término da análise exploratória.
+	     Seleção das melhores features com o forward feature
+	     selector.
+
