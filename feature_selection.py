@@ -23,19 +23,20 @@ y = wine['quality']
 test_size_ = 0.25
 xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size = test_size_, random_state = 42)
 
-wine_mod_train = pd.concat([xTrain, yTrain])
-wine_mod_test = pd.concat([xTest, yTest])
+wine_modified_train_validation = xTrain.copy()
+wine_modified_test = xTest.copy()
+
+wine_modified_train_validation['quality'] = yTrain
+wine_modified_test['quality'] = yTest
 
 # Save training and test dataframes
-wine_mod_train.to_csv('wine_modified_train.csv', index = False)
-wine_mod_test.to_csv('wine_modified_test.csv', index = False)
+
+wine_modified_train_validation.to_csv('wine_modified_train_validation.csv', index = False)
+wine_modified_test.to_csv('wine_modified_test.csv', index = False)
 
 # Models list
-# model_list = [LDA(), QDA(reg_param = 0.1), GaussianNB(), LogisticRegression(max_iter = 1000)]
-# model_names = ['LDA', 'QDA', 'GaussianNB', 'LogRegression']
-
-model_list = [LDA(), GaussianNB()]
-model_names = ['LDA', 'GaussianNB']
+model_list = [LDA(), QDA(reg_param = 0.1), GaussianNB(), LogisticRegression(max_iter = 1000)]
+model_names = ['LDA', 'QDA', 'GaussianNB', 'LogRegression']
 
 ####################################################
 # GET BEST FEATURES WITH FORWARD FEATURE SELECTION #
@@ -52,10 +53,6 @@ best_features = []
 
 for i in range(len(model_list)):
     best_features.append(func.get_best_features(model_list[i], model_names[i], xTrain, yTrain, n_features, kf))
-
-print(best_features)
-for i in range(n_features):
-    print(i)
 
 ####################################
 # WRITE BEST FEATURES ON .TXT FILE #

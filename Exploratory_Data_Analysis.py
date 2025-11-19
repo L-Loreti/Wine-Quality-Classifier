@@ -33,16 +33,16 @@ wine['quality'].loc[wine['quality'] == 3] = 1
 wine['quality'].loc[wine['quality'] == 4] = 1
 wine['quality'].loc[wine['quality'] == 5] = 1
 wine['quality'].loc[wine['quality'] == 6] = 2
-wine['quality'].loc[wine['quality'] == 7] = 3
-wine['quality'].loc[wine['quality'] == 8] = 3
+wine['quality'].loc[wine['quality'] == 7] = 2
+wine['quality'].loc[wine['quality'] == 8] = 2
 
 # Plot histogram after classes change
-'''
+
 plt.hist(wine['quality'])
 plt.xlabel('Quality')
 plt.ylabel('Quantity')
 plt.show()
-'''
+
 ###############################################
 # VIF ANALYSIS BEFORE FEATURES TRANSFORMATION #
 ###############################################
@@ -100,7 +100,7 @@ print(VIF)
 ############################################################
 # PEARSON CORRELATION MATRIX AFTER FEATURES TRANSFORMATION #
 ############################################################
-'''
+
 # Pearson correlation coefficient matrix
 corr = wine.corr()
 
@@ -115,7 +115,7 @@ mask2 = abs(corr) < threshold
 sns.heatmap(corr, mask = mask1 | mask2, cmap='inferno', vmin = -1, vmax=1, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
 plt.show()
-'''
+
 #############################################
 # SCATTER PLOTS FOR ALL FEATURES AND TARGET #
 #############################################
@@ -129,7 +129,7 @@ plt.show()
 ########################################################
 # SCATTER PLOT FOR TARGET WITH THE OTHER FEATURES ONLY #
 ########################################################
-'''
+
 df_columns = wine.drop(['quality'], axis = 1).copy().columns.tolist()
 
 n_rows = 2
@@ -149,10 +149,9 @@ for i in range(n_rows):
 
 plt.tight_layout()
 plt.show()
-'''
+
 ###########################################
 # CREATE CSV FILE WITH MODIFIED DATAFRAME #
 ###########################################
-'''
+
 wine.to_csv('wine_modified.csv', index=False)
-'''

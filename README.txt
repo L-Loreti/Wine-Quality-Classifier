@@ -21,3 +21,16 @@
 	     selector.
 	     Início do treinamento dos modelos (leitura das melhores
 	     features em um arquivo .txt)
+[19/11/2025] Continuação do treinamento dos modelos
+		Inicialmente a ideia era tentar predizar três
+		qualidades de vinho, porém, os algoritmos empregados
+		não possuem tal capacidade, pelo menos, com o proce-
+		dimento que realizei até o momento. Então, diminui 
+		uma classe de qualidade para o vinho, deixando 
+		somente duas. Assim, ao menos um algoritmo fica 
+		com score acima de 70%, o que pode ser aceitável.
+		Para tanto, desenvolvi o processo de treinamento
+		dos modelos no arquivo "model_training.py", porém,
+		tive que alterar o arquivo Exploratory_data_analysis.py
+		também. Ainda vou decidir se deixarei assim, ou 
+		tentarei algum outro procedimento.

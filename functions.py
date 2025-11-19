@@ -34,3 +34,38 @@ def get_best_features(model_declaration, model_name, xTrain, yTrain, MaxNumberOf
         best_features.append(xTrain.columns.tolist())
 
     return best_features
+
+
+def read_features(file, model_names):
+
+    lines = []
+    best_features = []
+
+    line = file.readline()
+    lineList = line.split(', ')
+    lineList = [item.strip() for item in lineList]
+
+    # read and store all file lines as a list
+    while line:
+
+        lines.append(lineList)
+
+        line = file.readline()
+        lineList = line.split(', ')
+        lineList = [item.strip() for item in lineList]
+
+    # get the features for every model (algoithm not optimized)
+    for i in range(len(model_names)):
+
+        model = model_names[i]
+
+        best_features_aux = []
+
+        for j in range(len(lines)):
+
+            if model == lines[j][0]:
+                best_features_aux.append(lines[j][2::])
+
+        best_features.append(best_features_aux)
+
+    return best_features
