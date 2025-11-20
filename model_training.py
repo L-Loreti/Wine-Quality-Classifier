@@ -87,8 +87,8 @@ for m in range(len(model_list)):
                 confMatrix = confusion_matrix(yVal[fold], predictions)
 
                 accuracy[m][ft][fold] = score
-                accuracy_class1[m][ft][fold] = confMatrix[0][0]/np.sum(confMatrix[0][:])
-                accuracy_class2[m][ft][fold] = confMatrix[1][1]/np.sum(confMatrix[1][:])
+                accuracy_class1[m][ft][fold] = confMatrix[0][0]/np.sum(confMatrix[:, 0])
+                accuracy_class2[m][ft][fold] = confMatrix[1][1]/np.sum(confMatrix[:, 1])
 
     else:
 
@@ -103,8 +103,8 @@ for m in range(len(model_list)):
                 confMatrix = confusion_matrix(yVal[fold], predictions)
 
                 accuracy[m][ft][fold] = score
-                accuracy_class1[m][ft][fold] = confMatrix[0][0]/np.sum(confMatrix[0][:])
-                accuracy_class2[m][ft][fold] = confMatrix[1][1]/np.sum(confMatrix[1][:])
+                accuracy_class1[m][ft][fold] = confMatrix[0][0]/np.sum(confMatrix[:, 0])
+                accuracy_class2[m][ft][fold] = confMatrix[1][1]/np.sum(confMatrix[:, 1])
 
 accuracies_file = open('Model_accuracies_different_classes_folds=' + str(n_folds) + '.txt', 'w')
 
