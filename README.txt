@@ -40,3 +40,9 @@
 		permite identificar o melhor modelo.
 		(Corrigi o erro no model_training.py que eu havia comentado
 		no README.txt da branch model_testing)
+	     	Com o modelo testado e performando bem, agora eu pretendo
+		elaborar um "estudo de caso" onde eu crio uma função
+		custo com o intuito de diminuir os falsos positivos
+		do modelo. Para tanto, vou usar o ROC para fazer o
+		fine-tuning e mudar a threshold.
+		Salvei o modelo usando Pickle, e então terminei a testagem.
