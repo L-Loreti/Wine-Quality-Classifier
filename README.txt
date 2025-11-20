@@ -38,3 +38,5 @@
 		está montado, com ele já é possível obter as acurácias 
 		de cada algoritmo para cada classe de vinho, o que 
 		permite identificar o melhor modelo.
+		(Corrigi o erro no model_training.py que eu havia comentado
+		no README.txt da branch model_testing)
