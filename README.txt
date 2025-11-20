@@ -34,3 +34,7 @@
 		tive que alterar o arquivo Exploratory_data_analysis.py
 		também. Ainda vou decidir se deixarei assim, ou 
 		tentarei algum outro procedimento.
+[20/11/2025] Continuação do treinamento e validação. Todo o algoritmo 
+		está montado, com ele já é possível obter as acurácias 
+		de cada algoritmo para cada classe de vinho, o que 
+		permite identificar o melhor modelo.

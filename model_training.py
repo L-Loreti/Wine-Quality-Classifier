@@ -39,7 +39,7 @@ y = wine_train['quality'].copy()
 # SPLIT TRAINING/VALIDATION DATA INTO FOLDS #
 #############################################
 
-n_folds = 8
+n_folds = 10
 
 kf = KFold(n_splits=n_folds, shuffle=True, random_state = 93)
 
@@ -56,13 +56,6 @@ for train_index, val_index in kf.split(x):
     xVal.append(x.iloc[val_index])
     yVal.append(y.iloc[val_index])
 
-
-print('TREINAMENTO')
-print('Classe 1:', len(xTrain[0].loc[yTrain[0] == 1]))
-print('Classe 2:', len(xTrain[0].loc[yTrain[0] == 2]))
-print('Classe 3:', len(xTrain[0].loc[yTrain[0] == 3]))
-print(len(xVal[0].loc[yVal[0] == 3]))
-
 ###################
 # MODELS TRAINING #
 ###################
@@ -72,7 +65,6 @@ n_featuresLOGIT = n_features + 1
 
 accuracy_class1 = np.zeros(shape=(len(model_list), len(xTrain[0].columns)+1, n_folds))
 accuracy_class2 = np.zeros(shape=(len(model_list), len(xTrain[0].columns)+1, n_folds))
-# accuracy_class3 = np.zeros(shape=(len(model_list), len(xTrain[0].columns)+1, n_folds))
 accuracy = np.zeros(shape=(len(model_list), len(xTrain[0].columns)+1, n_folds))
 
 for m in range(len(model_list)):
@@ -97,7 +89,6 @@ for m in range(len(model_list)):
                 accuracy[m][ft][fold] = score
                 accuracy_class1[m][ft][fold] = confMatrix[0][0]/np.sum(confMatrix[0][:])
                 accuracy_class2[m][ft][fold] = confMatrix[1][1]/np.sum(confMatrix[1][:])
-                # accuracy_class3[m][ft][fold] = confMatrix[2][2]/np.sum(confMatrix[2][:])
 
     else:
 
@@ -114,22 +105,14 @@ for m in range(len(model_list)):
                 accuracy[m][ft][fold] = score
                 accuracy_class1[m][ft][fold] = confMatrix[0][0]/np.sum(confMatrix[0][:])
                 accuracy_class2[m][ft][fold] = confMatrix[1][1]/np.sum(confMatrix[1][:])
-                # accuracy_class3[m][ft][fold] = confMatrix[2][2]/np.sum(confMatrix[2][:])
 
-######################################
-# PLOT SCORE AVERAGES FOR EACH CLASS #
-######################################
-
-fig, axs = plt.subplots(2, 2, figsize = (16, 8))
+accuracies_file = open('Model_accuracies_different_classes_folds=' + str(n_folds) + '.txt', 'w')
 
 mean_accuracy_class1 = np.zeros(shape = (len(model_list), n_featuresLOGIT))
 std_accuracy_class1 = np.zeros(shape = (len(model_list), n_featuresLOGIT))
 
 mean_accuracy_class2 = np.zeros(shape = (len(model_list), n_featuresLOGIT))
 std_accuracy_class2 = np.zeros(shape = (len(model_list), n_featuresLOGIT))
-
-# mean_accuracy_class3 = np.zeros(shape = (len(model_list), n_featuresLOGIT))
-# std_accuracy_class3 = np.zeros(shape = (len(model_list), n_featuresLOGIT))
 
 mean_accuracy_general = np.zeros(shape = (len(model_list), n_featuresLOGIT))
 std_accuracy_general = np.zeros(shape = (len(model_list), n_featuresLOGIT))
@@ -143,50 +126,64 @@ for m in range(len(model_names)):
         mean_accuracy_class2[m][ft] = np.mean(accuracy_class2[m][ft][:])
         std_accuracy_class2[m][ft] = np.std(accuracy_class2[m][ft][:])
 
-        # mean_accuracy_class3[m][ft] = np.mean(accuracy_class3[m][ft][:])
-        # std_accuracy_class3[m][ft] = np.std(accuracy_class3[m][ft][:])
-
         mean_accuracy_general[m][ft] = np.mean(accuracy[m][ft][:])
         std_accuracy_general[m][ft] = np.std(accuracy[m][ft][:])
 
+        accuracies_file.write('[Class 1], ' + str(model_names[m]) + ', ' + str(ft+1) + ', ' 
+                              + str(mean_accuracy_class1[m][ft]) + ', ' + str(std_accuracy_class1[m][ft]) + '\n')
+        accuracies_file.write('[Class 2], ' + str(model_names[m]) + ', ' + str(ft+1) + ', ' 
+                              + str(mean_accuracy_class2[m][ft]) + ', ' + str(std_accuracy_class2[m][ft]) + '\n')
+        accuracies_file.write('[General], ' + str(model_names[m]) + ', ' + str(ft+1) + ', ' 
+                              + str(mean_accuracy_general[m][ft]) + ', ' + str(std_accuracy_general[m][ft]) + '\n')
+
+accuracies_file.close()
+
+######################################
+# PLOT SCORE AVERAGES FOR EACH CLASS #
+######################################
+
+fig, axes = plt.subplot_mosaic([['left', 'right'],
+                                ['bottom', 'bottom']],
+                               layout='tight', figsize = (16,8))
+
+# Plot on the axes using their names
+axes['left'].set_title('Class 1')
+axes['left'].set_ylabel('Accuracy')
+axes['left'].set_ylim(-0.03, 1)
+axes['left'].set_yticks(np.arange(0, 1.1, 0.1))
+axes['left'].grid(visible = True, axis = 'y', linestyle = '--', linewidth=0.7)
+
+axes['right'].set_title('Class 2')
+axes['right'].set_ylabel('Accuracy')
+axes['right'].set_ylim(-0.03, 1)
+axes['right'].set_yticks(np.arange(0, 1.1, 0.1))
+axes['right'].grid(visible = True, axis = 'y', linestyle = '--', linewidth=0.7)
+
+axes['bottom'].set_title('General')
+axes['bottom'].set_ylabel('Accuracy')
+axes['bottom'].set_xlabel('Number of Features')
+axes['bottom'].set_ylim(-0.03, 1)
+axes['bottom'].set_yticks(np.arange(0, 1.1, 0.1))
+axes['bottom'].grid(visible = True, axis = 'y', linestyle = '--', linewidth=0.7)
+
+points_position = [-0.15, -0.05, 0.05, 0.15]
+
 for m in range(len(model_names)):
-    axs[0, 0].errorbar(np.arange(1, n_featuresLOGIT + 1)+0.1*m, mean_accuracy_class1[m][:], std_accuracy_class1[m][:],
-                 label = model_names[m], fmt = 'o')
-
-    axs[0, 1].errorbar(np.arange(1, n_featuresLOGIT + 1)+0.1*m, mean_accuracy_class2[m][:], std_accuracy_class2[m][:],
-                 label = model_names[m], fmt = 'o')
     
-    # axs[1, 0].errorbar(np.arange(1, n_featuresLOGIT + 1)+0.1*m, mean_accuracy_class3[m][:], std_accuracy_class3[m][:],
-    #              label = model_names[m], fmt = 'o')
-
-    axs[1, 1].errorbar(np.arange(1, n_featuresLOGIT + 1)+0.1*m, mean_accuracy_general[m][:], std_accuracy_general[m][:],
+    axes['left'].errorbar(np.arange(1, n_featuresLOGIT + 1)+points_position[m], mean_accuracy_class1[m][:], std_accuracy_class1[m][:],
                  label = model_names[m], fmt = 'o')
 
-# fig.suptitle('test_size=' + str(test_size_) + 
-#              ', folds=' + str(n_folds) +
-#              ', size_label1=' + str(size_label1) + 
-#              ', size_label2=' + str(size_label2) + 
-#              ', size_label3=' + str(size_label3), fontsize=16)
+    axes['right'].errorbar(np.arange(1, n_featuresLOGIT + 1)+points_position[m], mean_accuracy_class2[m][:], std_accuracy_class2[m][:],
+                 label = model_names[m], fmt = 'o')
 
-axs[0, 0].set_title('Accuracy - Class 1')
-axs[0, 0].set_yticks(np.arange(0,1.1,0.1))
+    axes['bottom'].errorbar(np.arange(1, n_featuresLOGIT + 1)+points_position[m], mean_accuracy_general[m][:], std_accuracy_general[m][:],
+                 label = model_names[m], fmt = 'o')
 
-axs[0, 1].set_title('Accuracy - Class 2')
-axs[0, 1].set_yticks(np.arange(0,1.1,0.1))
+fig.suptitle('Folds=' + str(n_folds),
+             fontsize = 16)
+plt.legend(loc = 'lower left')
 
-# axs[1, 0].set_title('Accuracy - Class 3')
-# axs[1, 0].set_yticks(np.arange(0,1.1,0.1))
-
-axs[1, 1].set_title('Accuracy - General')
-axs[1, 1].set_yticks(np.arange(0,1.1,0.1))
-
-fig.tight_layout()
-plt.legend()
-
-# figname = ("test_size: " + str(test_size_) + ", Folds: " + str(n_folds) + 
-#           ", size_label1: " + str(size_label1) +
-#           ", size_label2: " + str(size_label2) +
-#           ", size_label3: " + str(size_label3) + ".png")
-# plt.savefig(figname, dpi = 600)
+figname = ("Model Accuracies, folds=" + str(n_folds) + ".png")
+plt.savefig(figname, dpi = 600)
 
 plt.show()
