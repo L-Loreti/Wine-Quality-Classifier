@@ -46,3 +46,5 @@
 		do modelo. Para tanto, vou usar o ROC para fazer o
 		fine-tuning e mudar a threshold.
 		Salvei o modelo usando Pickle, e então terminei a testagem.
+[21/11/2025] Término do fine-tuning, agora só falta formalizar os
+		resultados em um relatório.

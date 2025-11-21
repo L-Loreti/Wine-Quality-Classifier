@@ -9,7 +9,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 
 from sklearn.model_selection import KFold
 from sklearn.metrics import (confusion_matrix, ConfusionMatrixDisplay,
-                             accuracy_score, RocCurveDisplay, roc_curve)
+                             accuracy_score)
 
 ################################
 # LOAD MODEL AND BEST FEATURES #

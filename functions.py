@@ -69,3 +69,6 @@ def read_features(file, model_names):
         best_features.append(best_features_aux)
 
     return best_features
+
+def cost_function(fp1, fp2, p1, p2, q1, q2):
+    return (q1*p1*fp1 + q2*(p2-p1)*fp2)
