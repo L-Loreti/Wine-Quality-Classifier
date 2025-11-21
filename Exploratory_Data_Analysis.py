@@ -2,13 +2,25 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from mysql import connector
 
 from statsmodels.tools.tools import add_constant
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
-wine = pd.read_csv('WineQT.csv')
+connection = connector.connect(
+  host = '127.0.0.1',
+  user = 'Leonardo-Loreti',
+  password = '########',
+  database = 'WineQT'
+)
+
+query = 'SELECT * FROM WineData'
+
+wine = pd.read_sql(query, con = connection)
 # Same data than the dataframe index
-wine = wine.drop(['Id'], axis = 1)
+wine = wine.drop(['id'], axis = 1)
+
+connection.close()
 
 #############################
 # EXPLORATORY DATA ANALYSIS #
@@ -75,6 +87,7 @@ plt.show()
 ############################
 # VARIABLES TRANSFORMATION #
 ############################
+'''
 wine['total acidity'] = wine['fixed acidity'] + wine['volatile acidity']
 wine['citric acid percentage'] = wine['citric acid']/wine['total acidity']
 wine['free sulfur dioxide percentage'] = wine['free sulfur dioxide']/wine['total sulfur dioxide']
@@ -86,7 +99,7 @@ wine.insert(len(wine.columns), 'quality', quality_col)
 wine = wine.drop(['fixed acidity', 'volatile acidity', 'citric acid',
                   'free sulfur dioxide', 'total sulfur dioxide',
                   'alcohol', 'density', 'pH'], axis = 1)
-
+'''
 ##############################################
 # VIF ANALYSIS AFTER FEATURES TRANSFORMATION #
 ##############################################
@@ -100,7 +113,7 @@ print(VIF)
 ############################################################
 # PEARSON CORRELATION MATRIX AFTER FEATURES TRANSFORMATION #
 ############################################################
-
+'''
 # Pearson correlation coefficient matrix
 corr = wine.corr()
 
@@ -115,7 +128,7 @@ mask2 = abs(corr) < threshold
 sns.heatmap(corr, mask = mask1 | mask2, cmap='inferno', vmin = -1, vmax=1, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
 plt.show()
-
+'''
 #############################################
 # SCATTER PLOTS FOR ALL FEATURES AND TARGET #
 #############################################
@@ -129,7 +142,7 @@ plt.show()
 ########################################################
 # SCATTER PLOT FOR TARGET WITH THE OTHER FEATURES ONLY #
 ########################################################
-
+'''
 df_columns = wine.drop(['quality'], axis = 1).copy().columns.tolist()
 
 n_rows = 2
@@ -149,9 +162,9 @@ for i in range(n_rows):
 
 plt.tight_layout()
 plt.show()
-
+'''
 ###########################################
 # CREATE CSV FILE WITH MODIFIED DATAFRAME #
 ###########################################
 
-wine.to_csv('wine_modified.csv', index=False)
+# wine.to_csv('wine_modified.csv', index=False)
