@@ -10,7 +10,7 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 connection = connector.connect(
   host = '127.0.0.1',
   user = 'Leonardo-Loreti',
-  password = '########',
+  password = '159753bhg',
   database = 'WineQT'
 )
 
@@ -31,11 +31,16 @@ connection.close()
 print(wine.info())
 print(wine.duplicated().sum())
 '''
+
 # Let's look at the quantity of data for each class
 '''
-plt.hist(wine['quality'])
+bins_ = [i for i in np.arange(2.75,9.75)]
+
+plt.hist(wine['quality'], bins = bins_,
+         width = 0.5, edgecolor = 'k', color = '#2ca02c')
 plt.xlabel('Quality')
-plt.ylabel('Quantity')
+plt.ylabel('Count')
+plt.xlim(2.5, 8.5)
 plt.show()
 '''
 # There is a high inbalance between the classes quantity of data, so 
@@ -47,14 +52,16 @@ wine['quality'].loc[wine['quality'] == 5] = 1
 wine['quality'].loc[wine['quality'] == 6] = 2
 wine['quality'].loc[wine['quality'] == 7] = 2
 wine['quality'].loc[wine['quality'] == 8] = 2
-
+'''
 # Plot histogram after classes change
-
-plt.hist(wine['quality'])
+plt.hist(wine['quality'].loc[wine['quality'] == 1], bins = [0.75, 1.75], edgecolor = 'k', color = '#2ca02c', width = 0.5)
+plt.hist(wine['quality'].loc[wine['quality'] == 2], bins = [1.75, 2.75], edgecolor = 'k', color = '#2ca02c', width = 0.5)
 plt.xlabel('Quality')
-plt.ylabel('Quantity')
+plt.ylabel('Count')
+plt.xlim(0.5, 2.5)
+plt.xticks([0.5, 1.0, 1.5, 2.0, 2.5])
 plt.show()
-
+'''
 ###############################################
 # VIF ANALYSIS BEFORE FEATURES TRANSFORMATION #
 ###############################################
@@ -75,19 +82,20 @@ corr = wine.corr()
 # Generate a mask for the upper triangle
 mask1 = np.triu(np.ones_like(corr, dtype=bool))
 
-threshold = 0.3
+threshold = 0
 mask2 = abs(corr) < threshold
 
 # Draw the heatmap with the mask and correct aspect ratio
 
-sns.heatmap(corr, mask = mask1 | mask2, cmap='inferno', vmax=.3, center=0,
+sns.heatmap(corr, mask = mask1 | mask2, cmap='inferno', vmin = -1, vmax=1, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
+plt.xticks(rotation=30, ha='right')
 plt.show()
 '''
 ############################
 # VARIABLES TRANSFORMATION #
 ############################
-'''
+
 wine['total acidity'] = wine['fixed acidity'] + wine['volatile acidity']
 wine['citric acid percentage'] = wine['citric acid']/wine['total acidity']
 wine['free sulfur dioxide percentage'] = wine['free sulfur dioxide']/wine['total sulfur dioxide']
@@ -99,44 +107,53 @@ wine.insert(len(wine.columns), 'quality', quality_col)
 wine = wine.drop(['fixed acidity', 'volatile acidity', 'citric acid',
                   'free sulfur dioxide', 'total sulfur dioxide',
                   'alcohol', 'density', 'pH'], axis = 1)
-'''
+
 ##############################################
 # VIF ANALYSIS AFTER FEATURES TRANSFORMATION #
 ##############################################
-'''
+
 # Adding constant for the VIF regression procedure
 x = add_constant(wine)
 
 VIF = pd.Series([variance_inflation_factor(x.values, i) for i in range(x.shape[1])], index=x.columns)
 print(VIF)
-'''
+
 ############################################################
 # PEARSON CORRELATION MATRIX AFTER FEATURES TRANSFORMATION #
 ############################################################
 '''
+fig, ax = plt.subplots(figsize=(12,12))
+
 # Pearson correlation coefficient matrix
 corr = wine.corr()
 
 # Generate a mask for the upper triangle
 mask1 = np.triu(np.ones_like(corr, dtype=bool))
 
-threshold = 0.4
+threshold = 0
 mask2 = abs(corr) < threshold
 
 # Draw the heatmap with the mask and correct aspect ratio
 
 sns.heatmap(corr, mask = mask1 | mask2, cmap='inferno', vmin = -1, vmax=1, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
+plt.xticks(rotation=30, ha = 'right')
 plt.show()
 '''
-#############################################
-# SCATTER PLOTS FOR ALL FEATURES AND TARGET #
-#############################################
+##################################
+# SCATTER PLOTS FOR ALL FEATURES #
+##################################
 # It is always important to check if there are data patterns that can
 # result in a low value for the Pearson Correlation coefficient, even
 # if there is a strong relation between the variables. 
 '''
-pd.plotting.scatter_matrix(wine, figsize = (22,22))
+axes = pd.plotting.scatter_matrix(wine.drop(['quality'], axis = 1), figsize = (22,22))
+for ax in axes.flatten():
+  ax.xaxis.label.set_rotation(30)
+  ax.yaxis.label.set_rotation(0)
+  ax.yaxis.label.set_ha('right')
+plt.tight_layout()
+plt.gcf().subplots_adjust(wspace = 0, hspace = 0)
 plt.show()
 '''
 ########################################################

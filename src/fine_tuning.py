@@ -24,6 +24,10 @@ predictions = lda.predict(xTest[features])
 pred_proba = lda.predict_proba(xTest[features])
 pred_proba_class1 = pred_proba[:,0]
 
+print(lda.coef_)
+print(lda.get_params(deep = True))
+
+'''
 confMatrix = confusion_matrix(yTest, predictions)
 
 fpr, tpr, thresholds = roc_curve(y_true = yTest, y_score = pred_proba_class1,  pos_label = 1)
@@ -122,3 +126,4 @@ print("Class 1 accuracy:", np.round(scoreClass1_maxScoreThreshold, 3))
 print("Class 2 accuracy:", np.round(scoreClass2_maxScoreThreshold, 3))
 print("Total ammount of sales is: R$", np.round(amount_sales, 2))
 print("Refund is: R$", np.round(refund, 2), "which is", np.round(refund/amount_sales, 3)*100, "% of sales" )
+'''
