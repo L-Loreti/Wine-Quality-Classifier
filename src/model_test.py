@@ -5,7 +5,7 @@ import pickle
 
 import functions as func
 
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from sklearn.naive_bayes import GaussianNB
 
 from sklearn.model_selection import KFold
 from sklearn.metrics import (confusion_matrix, ConfusionMatrixDisplay,
@@ -15,8 +15,8 @@ from sklearn.metrics import (confusion_matrix, ConfusionMatrixDisplay,
 # LOAD MODEL AND BEST FEATURES #
 ################################
 
-features = ['chlorides', 'sulphates', 'total acidity', 'free sulfur dioxide percentage', 'percentage of alcohol density']
-lda = LDA()
+features = ['chlorides', 'sulphates', 'total acidity', 'percentage of alcohol density']
+model = GaussianNB()
 
 #####################################
 # LOAD THE TRAINING/VALIDATION DATA #
@@ -37,7 +37,7 @@ yTest = wine_test['quality'].copy()
 
 n_folds = 10
 
-kf = KFold(n_splits=n_folds, shuffle=True, random_state = 93)
+kf = KFold(n_splits=n_folds, shuffle=True, random_state = 81)
 
 xTrain = []
 yTrain = []
@@ -52,10 +52,10 @@ for train_index, val_index in kf.split(xTrain_Val):
 ########################
 
 for f in range(n_folds):
-    lda.fit(xTrain[f][features], yTrain[f])
+    model.fit(xTrain[f][features], yTrain[f])
 
-predictions = lda.predict(xTest[features])
-pred_proba = lda.predict_proba(xTest[features])
+predictions = model.predict(xTest[features])
+pred_proba = model.predict_proba(xTest[features])
 score = accuracy_score(predictions, yTest)
 
 confMatrix = confusion_matrix(yTest, predictions)
@@ -70,5 +70,5 @@ print('Class 2 accuracy:', accuracy_class2)
 # Create a file to store the trained model with permission to 
 # write binary code
 file_model = open('Trained model.pkl', 'wb')
-pickle.dump(lda, file_model)
+pickle.dump(model, file_model)
 file_model.close()

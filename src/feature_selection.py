@@ -29,8 +29,7 @@ wine_modified_test = xTest.copy()
 wine_modified_train_validation['quality'] = yTrain
 wine_modified_test['quality'] = yTest
 
-# Save training and test dataframes
-
+# Save the training and test dataframes
 wine_modified_train_validation.to_csv('wine_modified_train_validation.csv', index = False)
 wine_modified_test.to_csv('wine_modified_test.csv', index = False)
 
@@ -58,7 +57,7 @@ for i in range(len(model_list)):
 # WRITE BEST FEATURES ON .TXT FILE #
 ####################################
 
-file_features = open('[Best Features].txt', 'w')
+file_features = open('/home/leonardo/Documentos/Ciência de Dados/Wine-Quality-Classifier/figs-results/best_features.txt', 'w')
 
 for m in range(len(model_list)):
     if model_names[m] == 'LogRegression':

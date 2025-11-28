@@ -20,7 +20,7 @@ from statsmodels.tools.tools import add_constant
 model_list = [LDA(), QDA(reg_param = 0.1), GaussianNB(), LogisticRegression(max_iter = 1000)]
 model_names = ['LDA', 'QDA', 'GaussianNB', 'LogRegression']
 
-file = open('[Best Features].txt', 'r')
+file = open('/home/leonardo/Documentos/Ciência de Dados/Wine-Quality-Classifier/figs-results/best_features.txt', 'r')
 
 best_features = func.read_features(file, model_names)
 
@@ -41,7 +41,7 @@ y = wine_train['quality'].copy()
 
 n_folds = 10
 
-kf = KFold(n_splits=n_folds, shuffle=True, random_state = 93)
+kf = KFold(n_splits=n_folds, shuffle=True, random_state = 81)
 
 xTrain = []
 yTrain = []
@@ -106,7 +106,7 @@ for m in range(len(model_list)):
                 accuracy_class1[m][ft][fold] = confMatrix[0][0]/np.sum(confMatrix[:, 0])
                 accuracy_class2[m][ft][fold] = confMatrix[1][1]/np.sum(confMatrix[:, 1])
 
-accuracies_file = open('Model_accuracies_different_classes_folds=' + str(n_folds) + '.txt', 'w')
+accuracies_file = open('/home/leonardo/Documentos/Ciência de Dados/Wine-Quality-Classifier/figs-results/Model_accuracies_different_classes_folds=' + str(n_folds) + '.txt', 'w')
 
 mean_accuracy_class1 = np.zeros(shape = (len(model_list), n_featuresLOGIT))
 std_accuracy_class1 = np.zeros(shape = (len(model_list), n_featuresLOGIT))
@@ -144,7 +144,7 @@ accuracies_file.close()
 
 fig, axes = plt.subplot_mosaic([['left', 'right'],
                                 ['bottom', 'bottom']],
-                               layout='tight', figsize = (16,8))
+                               layout='tight', figsize = (12,8))
 
 # Plot on the axes using their names
 axes['left'].set_title('Class 1')
@@ -183,7 +183,8 @@ fig.suptitle('Folds=' + str(n_folds),
              fontsize = 16)
 plt.legend(loc = 'lower left')
 
-figname = ("Model Accuracies, folds=" + str(n_folds) + ".png")
+# Save figure, if intended
+figname = ("/home/leonardo/Documentos/Ciência de Dados/Wine-Quality-Classifier/figs-results/Model Accuracies, folds=" + str(n_folds) + ".png")
 plt.savefig(figname, dpi = 600)
 
 plt.show()

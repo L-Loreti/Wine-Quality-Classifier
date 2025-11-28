@@ -1,0 +1,29 @@
+LDA, 1, percentage of alcohol density
+LDA, 2, total acidity, percentage of alcohol density
+LDA, 3, total acidity, free sulfur dioxide percentage, percentage of alcohol density
+LDA, 4, chlorides, total acidity, free sulfur dioxide percentage, percentage of alcohol density
+LDA, 5, chlorides, sulphates, total acidity, free sulfur dioxide percentage, percentage of alcohol density
+LDA, 6, residual sugar, chlorides, sulphates, total acidity, free sulfur dioxide percentage, percentage of alcohol density
+LDA, 7, residual sugar, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density
+QDA, 1, residual sugar
+QDA, 2, residual sugar, chlorides
+QDA, 3, residual sugar, chlorides, citric acid percentage
+QDA, 4, residual sugar, chlorides, citric acid percentage, free sulfur dioxide percentage
+QDA, 5, residual sugar, chlorides, sulphates, citric acid percentage, free sulfur dioxide percentage
+QDA, 6, residual sugar, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage
+QDA, 7, residual sugar, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density
+GaussianNB, 1, percentage of alcohol density
+GaussianNB, 2, sulphates, percentage of alcohol density
+GaussianNB, 3, sulphates, total acidity, percentage of alcohol density
+GaussianNB, 4, chlorides, sulphates, total acidity, percentage of alcohol density
+GaussianNB, 5, chlorides, sulphates, total acidity, free sulfur dioxide percentage, percentage of alcohol density
+GaussianNB, 6, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density
+GaussianNB, 7, residual sugar, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density
+LogRegression, 1, sulphates
+LogRegression, 2, sulphates, percentage of alcohol density
+LogRegression, 3, residual sugar, sulphates, percentage of alcohol density
+LogRegression, 4, const, residual sugar, sulphates, percentage of alcohol density
+LogRegression, 5, const, residual sugar, chlorides, sulphates, percentage of alcohol density
+LogRegression, 6, const, residual sugar, chlorides, sulphates, citric acid percentage, percentage of alcohol density
+LogRegression, 7, const, residual sugar, chlorides, sulphates, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density
+LogRegression, 8, const, residual sugar, chlorides, sulphates, total acidity, citric acid percentage, free sulfur dioxide percentage, percentage of alcohol density
