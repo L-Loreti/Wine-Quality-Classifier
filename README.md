@@ -6,7 +6,49 @@
     Overview of the project
 </b></h2>
 
-The project aims to classify correctly the quality of wines based on some of its chemical features. For that, I tested four different classification algorithms with slightly different characteristics: 
+This project aims to classify correctly the quality of wines based on some of its chemical features (click on the features to get more information). 
+
+<details>
+
+<summary><b>Fixed Acidity (g/L)</b></summary>
+
+<i>Acids are responsible for the 'flatness', when there is little acid, or the sourness taste of a wine. [Fixed acids](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) found in wines are tartaric, malic, citric and succinic.</i>
+
+</details>
+
+<details>
+
+<summary><b>Volatile Acidity (g/L)</b></summary>
+
+<i>The most common [volatile acid](https://www.awri.com.au/wp-content/uploads/2018/03/s1982.pdf) is acetic acid, which is responsible for the smell of wine due to evaporation. In addition, sulfuric acid is also a volatile acid.</i>
+
+</details>
+
+<details>
+
+<summary><b>Citric Acid (g/L)</b></summary>
+
+<i>It is a [fixed acid](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) found in the range 0 to 0.5 g/L.</i>
+
+</details>
+
+<details>
+
+<summary><b>Residual Sugar (g/L)</b></summary>
+
+<i>It is the [natural sugar](https://winefolly.com/deep-dive/what-is-residual-sugar-in-wine/) from grapes that remains in the wine after the fermentation process is interrupted. Its quantity determines the sweetness of the wine.</i>
+
+</details>
+
+<details>
+
+<summary><b>Chlorides (g/L)</b></summary>
+
+<i>It influences the "flatness" and the burning persistence. Grapes grown in regions close to the sea tend to produce juice with a higher [chloride content](https://www.awri.com.au/wp-content/uploads/2018/08/s1530.pdf).</i>
+
+</details>
+
+For that, I tested four different classification algorithms with slightly different characteristics: 
 1. <b>Logistic Regression:</b> (# talk about some of its charracteristics); 
 2. <b>Linear Discriminant Analysis:</b> which assumes that the variables are described by a gaussian distribution and has the same variance;
 3. <b>Quadratic Discriminant Analysis:</b> which also assumes a gaussian distribution but not the same covariance matrix, what gives a quadratic decision boundary for the classification;
@@ -243,3 +285,5 @@ With bussiness knowledge it is possible to optimize even further the algorithm, 
 </ol>
 
 </details>
+
+[1]: https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity
