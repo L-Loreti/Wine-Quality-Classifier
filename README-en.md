@@ -10,9 +10,9 @@ The correct classification of wine quality is extremely important for producers 
 
 I used the Wine Quality Database provided by the article “[Modeling wine preferences by data mining from physicochemical properties](https://www.sciencedirect.com/science/article/abs/pii/S0167923609001377?via%3Dihub).” The researchers used the Support Vector Machine (SVM) algorithm to predict wine quality, but did not achieve good results, with an accuracy of approximately 63%. This shows that predicting wine quality is not an easy task, and may be due to the unbalanced distribution of data, as I discuss in the section “Data Manipulation.”
 
-My proposal is to join some of the quality wines data into new categories to balance the data distribution. Besides that, a process of feature engineering and feature selection was done, which extinguished the multicolinearity between the features, and for the training part, the cross-validation procedure was applied, which provided a good generalization of the best algorithm asserted by its performance on the test data set. In the end, bussiness knowledge was applied to improve even further the predictions. 
+My proposal is to combine some wine qualities into a single category to balance the distribution of data. In addition, a feature engineering and selection process was performed, which eliminated multicollinearity between features, and for the training part, a cross-validation procedure was applied, which provided a good generalization of the best algorithm, suggested by its performance on the test dataset. Finally, business knowledge was applied to further improve the predictions.
 
-Click on "<i>Wine Parameters</i>" to get more information about the features of the database.
+Click on “<i>Wine Parameters</i>” for more information about the characteristics of the database.
 
 <details>
 
@@ -21,7 +21,7 @@ Click on "<i>Wine Parameters</i>" to get more information about the features of 
 <details>
 <summary><b>Fixed Acidity (g/L)</b></summary>
 
-<i>Acids are responsible for the 'flatness', when there is little acid, or the sourness taste of a wine. [Fixed acids](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) found in wines are tartaric, malic, citric and succinic.</i>
+<i>Acids are responsible for the “flatness” when there is little acid, or for the sour taste of a wine. The [fixed acids](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) found in wines are tartaric, malic, citric, and succinic.</i>
 </details>
 
 <details>
@@ -33,62 +33,57 @@ Click on "<i>Wine Parameters</i>" to get more information about the features of 
 <details>
 <summary><b>Citric Acid (g/L)</b></summary>
 
-<i>It is a [fixed acid](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) found in the range 0 to 0.5 g/L.</i>
+<i>It is a [fixed acid](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) found in the range of 0 to 0.5 g/L.</i>
 </details>
 
 <details>
 <summary><b>Residual Sugar (g/L)</b></summary>
 
-<i>It is the [natural sugar](https://winefolly.com/deep-dive/what-is-residual-sugar-in-wine/) from grapes that remains in the wine after the fermentation process is interrupted. Its quantity determines the sweetness of the wine.</i>
+<i>It is the [natural sugar](https://winefolly.com/deep-dive/what-is-residual-sugar-in-wine/) from grapes that remains in wine after the fermentation process has been interrupted. Its quantity determines the sweetness of the wine..</i>
 </details>
 
 <details>
-
 <summary><b>Chlorides (g/L)</b></summary>
 
-<i>It influences the "flatness" and the burning persistence. Grapes grown in regions close to the sea tend to produce juice with a higher [chloride content](https://www.awri.com.au/wp-content/uploads/2018/08/s1530.pdf).</i>
+<i>This influences the “flatness” and persistence of the flavor. Grapes grown in regions close to the sea tend to produce juice with a higher [chloride content](https://www.awri.com.au/wp-content/uploads/2018/08/s1530.pdf).</i>
 </details>
 
 <details>
-
 <summary><b>Sulphates (g/L)</b></summary>
 
 <i>Sulphates are responsible for [antioxidant and antimicrobial activity](https://www.lasommeliere.com/en/blog/sulfites-in-wine-what-are-they-and-what-do-they-do--n520), acting as preservatives for wines.</i>
 </details>
 
 <details>
-
 <summary><b>Free Sulfur Dioxide (mg/L)</b></summary>
 
-<i>Like sulphates, the <b>[free sulfur dioxide](https://extension.okstate.edu/fact-sheets/understanding-free-sulfur-dioxide-fso2-in-wine.html)</b> acts as a preservative in wine. It tends to bound to other molecules, loosing its preservative action.</i>
+<i>Like sulfates, [free sulfur dioxide](https://extension.okstate.edu/fact-sheets/understanding-free-sulfur-dioxide-fso2-in-wine.html) acts as a preservative in wine. It tends to bind to other molecules, losing its preservative action.</i>
 </details>
 
 <details>
-
 <summary><b>Total Sulfur Dioxide (mg/L)</b></summary>
 
-<i>Basically it is the [sum of the Free Sulfur Dioxide and the Bounded Sulfur Dioxide](https://www.oiv.int/public/medias/7840/oiv-collective-expertise-document-so2-and-wine-a-review.pdf).</i>
+<i>Basically, it is the [sum of free sulfur dioxide and bound sulfur dioxide](https://www.oiv.int/public/medias/7840/oiv-collective-expertise-document-so2-and-wine-a-review.pdf).</i>
 </details>
 
 <details>
-
 <summary><b>Density (g/mL)</b></summary>
 
 <i>It is an important parameter for monitoring the fermentation process. Once stabilized, it can be related to the smoothness of the wine.</i>
 </details>
 
 <details>
-
 <summary><b>pH</b></summary>
 
-<i>It is a [measure of the acidity of wine](https://www.awri.com.au/industry_support/winemaking_resources/frequently_asked_questions/acidity_and_ph/). A high pH means that there are more free hydrogen ions available to bind with free sulfur dioxide. Therefore, these two parameters must combine to provide the perfect sensation of desired acidity and prevent the deterioration of the wine.</i>
+<i>It is a [measure of the acidity of wine](https://www.awri.com.au/industry_support/winemaking_resources/frequently_asked_questions/acidity_and_ph/). A high pH means that there are more free hydrogen ions available to bind with free sulfur dioxide. Therefore, these two parameters must combine to provide the perfect sensation of desired acidity and prevent the wine from deteriorating.</i>
 </details>
 
 <details>
-
 <summary><b>Alcohol (%)</b></summary>
 
-<i>It acts as a preservative, but also is responsible for the [burning feeling](https://vinaliawine.com/blogs/our-journal/alcohol-and-its-role-in-wine?srsltid=AfmBOoooYR_PZUzfbiqLh8isStKaKnK6DNTravGMLjqb9kQZBiRmL9m6) of the wine</i>
+<i>It acts as a preservative, but is also responsible for the wine's [burning sensation](https://vinaliawine.com/blogs/our-journal/alcohol-and-its-role-in-wine?srsltid=AfmBOoooYR_PZUzfbiqLh8isStKaKnK6DNTravGMLjqb9kQZBiRmL9m6).</i>
+</details>
+
 </details>
 
 </details>
@@ -97,13 +92,15 @@ The information about the model development is provided on the following tabs. J
 
 <details>
 
-<summary><i>Connecting to SQL Server DataBase and Data Manipulation</i></summary>
+<summary><i>Creating an SQL database and connecting Python to the SQL Server database</i></summary>
 
 <h2><b>
-    Connecting to SQL Server DataBase and Data Manipulation
+    Creating an SQL database and connecting Python to the SQL Server database
 </b></h2>
 
-With the wine database mounted on SQL Server, we can use the <i>mysql</i> library to connect Python with it and get the chemichal features table:
+To create the SQL database with the wine features, we can run the [code](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/src/CREATE_WINE_DATABASE.sql).
+
+With the wine database set up in SQL Server, we can use the <i>mysql</i> library to connect Python to it and obtain the chemical features table:
 ```python
 connection = connector.connect(
   host = '127.0.0.1',
@@ -115,6 +112,14 @@ query = 'SELECT * FROM WineData'
 
 wine = pd.read_sql(query, con = connection)
 ```
+
+</details>
+
+<details>
+
+<summary><i>Data manipulation</i></summary>
+
+<h3><b>Data manipulation</b></h3>
 
 There were no <b>null</b> or <b>duplicated</b> data in the dataFrame, as was checked with the <i>.info()</i> and <i>.duplicated().sum()</i> commands, but the data is highly imbalanced as can be seen with the following histogram.
 
