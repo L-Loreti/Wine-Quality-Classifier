@@ -6,7 +6,13 @@
     Overview of the project
 </b></h2>
 
-This project aims to classify correctly the quality of wines based on some of its chemical features (click on "Wine Parameters" to open all of them). 
+The correct classification of wines is extremely important for producers and wine distribuitors. The selling on wines incorrectly classified can turn into refund to the company, for that reason, I developed a customizable Machine Learning algorithm for different bussiness cases. The general accuracy of the algorithm was almost <b>74%</b>, but assuming that all quality of wines have the same importance, which is not always the case, because if a merchant sells more wine of a specific quality, it is important that he has a better performance on this category, than the other ones, reducing the refund cost. The customization of the algorithm is explained on the section <b>Model Testing and Fine Tuning</b>. 
+
+I used the Wine Quality Database provided by the article "[Modeling wine preferences by data mining from physicochemical properties](https://www.sciencedirect.com/science/article/abs/pii/S0167923609001377?via%3Dihub)". The researchers used the <b>Support Vector Machine</b> algorithm to predict the quality of the wines, but couldn't achive good results, with accuracy of approximately 63%. This shows that the prediction of the wine quality is not an easy task, and maybe it is due to the imbalanced distribution of the data.
+
+My proposal is to join some of the quality wines data into new categories to balance the data distribution. Besides that, a process of feature engineering and feature selection was done, which extinguished the multicolinearity between the features, and for the training part, the cross-validation procedure was applied, which provided a good generalization of the best algorithm asserted by its performance on the test data set. In the end, bussiness knowledge was applied to improve even further the predictions. 
+
+Click on "<i>Wine Parameters</i>" to get more information about the features of the database.
 
 <details>
 
@@ -87,9 +93,7 @@ This project aims to classify correctly the quality of wines based on some of it
 
 </details>
 
-The correct classification of wines is extremely importante for producers and wine distribuitors. The selling on wines incorrectly classified can turn into refund. 
-
-For that reason, I developed a customizable algorithm for different bussiness case. The general accuracy of the algorithm was almost 74%, but assuming that all quality of wines have the same importance, which is not always the case, because if a merchant sells more wine of a specific quality, it is important that he has a better performance on this category, than the other ones, reducing the refund cost. The customization of the algorithm is explained on the section [Fine-Tuning](#Fine-Tuning). 
+The information about the model development is provided on the following tabs. Just <b>click on it</b> to open the explanation.
 
 For that, I tested four different classification algorithms with slightly different characteristics: 
 1. <b>Logistic Regression:</b> (# talk about some of its charracteristics); 
@@ -101,7 +105,7 @@ Choosing the best performant algorithm, where the process is described on the fo
 
 </details>
 
-<details open>
+<details>
 
 <summary><i>Connecting to SQL Server DataBase and Data Manipulation</i></summary>
 
@@ -211,7 +215,7 @@ I also checked the scatter plot of the [features with themselves](https://github
 
 </details>
 
-<details open>
+<details>
 
 <summary><i>Models Selection</i></summary>
 
@@ -244,7 +248,7 @@ The function loops through the different models, checking which <b>combination o
 
 </details>
 
-<details open>
+<details>
 
 <summary><i>Model's Training</i></summary>
 
@@ -261,11 +265,11 @@ Analysing the [accuracies](figs-results/Model_accuracies_different_classes_folds
 
 </details>
 
-<details open>
+<details>
 
-<summary><i>Model Testing and Fine-Tuning</i></summary>
+<summary><i>Model Testing and Fine Tuning</i></summary>
 
-<h2><b>Model Testing and Fine-Tuning</b></h2>
+<h2><b>Model Testing and Fine Tuning</b></h2>
 
 After choosing the best model on the training/validation dataset, we can [test it](src/model_test.py) on the test dataset. For that, I retrained the model with the correct features and the data training data set. Evaluating its accuracies over the test data set, we have,
 <ul>
@@ -281,7 +285,7 @@ And we can save the trained model for further improvement, with the library <i>p
     pickle.dump(model, file_model)
 ```
 
-<h3 id = "Fine-Tuning"><b>Fine-Tuning with Bussiness Knowledge</b></h3>
+<h3><b>Fine Tuning with Bussiness Knowledge</b></h3>
 
 The model is optimized for the general case where the client buys a balanced amount of wines of class 1 and class 2, but there are some relevant parameters we can include to improve the perfomance of the model for each type of client: the price of the wines of different classes (or the average of the prices), and the amount of buying of each class of wine for a specific group of clients. Our main goal is to reduce the false positives, supposing that every misclassified wine will become refund, or credit for posterior transactions.
 
@@ -315,7 +319,7 @@ Optimizing the cost function, we get the following results:
 
 </details>
 
-<details open>
+<details>
 
 <summary>Next Steps</summary>
 
@@ -330,5 +334,3 @@ With bussiness knowledge it is possible to optimize even further the algorithm, 
 </ol>
 
 </details>
-
-[1]: https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity
