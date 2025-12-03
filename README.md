@@ -6,9 +6,9 @@
     Overview of the project
 </b></h2>
 
-The correct classification of wines is extremely important for producers and wine distribuitors. The selling on wines incorrectly classified can turn into refund to the company, for that reason, I developed a customizable Machine Learning algorithm for different bussiness cases. The general accuracy of the algorithm was almost <b>74%</b>, but assuming that all quality of wines have the same importance, which is not always the case, because if a merchant sells more wine of a specific quality, it is important that he has a better performance on this category, than the other ones, reducing the refund cost. The customization of the algorithm is explained on the section <b>Model Testing and Fine Tuning</b>. 
+The correct classification of wines is extremely important for producers and wine distribuitors. The selling of wines incorrectly classified can turn into <b>refund to the company</b>, for that reason, I developed a customizable Machine Learning algorithm for different bussiness cases. The general accuracy of the algorithm was almost <b>74%</b>, assuming that all quality of wines have the same importance, which is not always the case, because if a merchant sells more wines of a specific quality, it is important that he has a better classification performance on this category, rather than on the other ones, reducing the refund cost. The customization of the algorithm is explained on the section <b>Model Testing and Fine Tuning</b>. 
 
-I used the Wine Quality Database provided by the article "[Modeling wine preferences by data mining from physicochemical properties](https://www.sciencedirect.com/science/article/abs/pii/S0167923609001377?via%3Dihub)". The researchers used the <b>Support Vector Machine</b> algorithm to predict the quality of the wines, but couldn't achive good results, with accuracy of approximately 63%. This shows that the prediction of the wine quality is not an easy task, and maybe it is due to the imbalanced distribution of the data.
+I used the Wine Quality Database provided by the article "[Modeling wine preferences by data mining from physicochemical properties](https://www.sciencedirect.com/science/article/abs/pii/S0167923609001377?via%3Dihub)". The researchers used the <b>Support Vector Machine</b> algorithm to predict the quality of the wines, but couldn't achieve good results, with accuracy of approximately 63%. This shows that the prediction of wine quality is not an easy task, and maybe it is due to the imbalanced distribution of the data, as I discuss on the "Data Manipulation" section.
 
 My proposal is to join some of the quality wines data into new categories to balance the data distribution. Besides that, a process of feature engineering and feature selection was done, which extinguished the multicolinearity between the features, and for the training part, the cross-validation procedure was applied, which provided a good generalization of the best algorithm asserted by its performance on the test data set. In the end, bussiness knowledge was applied to improve even further the predictions. 
 
@@ -53,7 +53,7 @@ Click on "<i>Wine Parameters</i>" to get more information about the features of 
 
 <summary><b>Sulphates (g/L)</b></summary>
 
-<i>Sulphates are responsible for [antioxidant and antimicrobial activity](https://www.lasommeliere.com/en/blog/sulfites-in-wine-what-are-they-and-what-do-they-do--n520), acting as preservatives for wines..</i>
+<i>Sulphates are responsible for [antioxidant and antimicrobial activity](https://www.lasommeliere.com/en/blog/sulfites-in-wine-what-are-they-and-what-do-they-do--n520), acting as preservatives for wines.</i>
 </details>
 
 <details>
