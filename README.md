@@ -6,38 +6,34 @@
     Overview of the project
 </b></h2>
 
-This project aims to classify correctly the quality of wines based on some of its chemical features (click on the features to get more information). 
+This project aims to classify correctly the quality of wines based on some of its chemical features (click on "Wine Parameters" to open all of them). 
 
 <details>
 
+<summary><h3><b>Wine Parameters</b></h3></summary>
+
+<details>
 <summary><b>Fixed Acidity (g/L)</b></summary>
 
 <i>Acids are responsible for the 'flatness', when there is little acid, or the sourness taste of a wine. [Fixed acids](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) found in wines are tartaric, malic, citric and succinic.</i>
-
 </details>
 
 <details>
-
 <summary><b>Volatile Acidity (g/L)</b></summary>
 
 <i>The most common [volatile acid](https://www.awri.com.au/wp-content/uploads/2018/03/s1982.pdf) is acetic acid, which is responsible for the smell of wine due to evaporation. In addition, sulfuric acid is also a volatile acid.</i>
-
 </details>
 
 <details>
-
 <summary><b>Citric Acid (g/L)</b></summary>
 
 <i>It is a [fixed acid](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) found in the range 0 to 0.5 g/L.</i>
-
 </details>
 
 <details>
-
 <summary><b>Residual Sugar (g/L)</b></summary>
 
 <i>It is the [natural sugar](https://winefolly.com/deep-dive/what-is-residual-sugar-in-wine/) from grapes that remains in the wine after the fermentation process is interrupted. Its quantity determines the sweetness of the wine.</i>
-
 </details>
 
 <details>
@@ -45,8 +41,55 @@ This project aims to classify correctly the quality of wines based on some of it
 <summary><b>Chlorides (g/L)</b></summary>
 
 <i>It influences the "flatness" and the burning persistence. Grapes grown in regions close to the sea tend to produce juice with a higher [chloride content](https://www.awri.com.au/wp-content/uploads/2018/08/s1530.pdf).</i>
+</details>
+
+<details>
+
+<summary><b>Sulphates (g/L)</b></summary>
+
+<i>Sulphates are responsible for [antioxidant and antimicrobial activity](https://www.lasommeliere.com/en/blog/sulfites-in-wine-what-are-they-and-what-do-they-do--n520), acting as preservatives for wines..</i>
+</details>
+
+<details>
+
+<summary><b>Free Sulfur Dioxide (mg/L)</b></summary>
+
+<i>Like sulphates, the <b>[free sulfur dioxide](https://extension.okstate.edu/fact-sheets/understanding-free-sulfur-dioxide-fso2-in-wine.html)</b> acts as a preservative in wine. It tends to bound to other molecules, loosing its preservative action.</i>
+</details>
+
+<details>
+
+<summary><b>Total Sulfur Dioxide (mg/L)</b></summary>
+
+<i>Basically it is the [sum of the Free Sulfur Dioxide and the Bounded Sulfur Dioxide](https://www.oiv.int/public/medias/7840/oiv-collective-expertise-document-so2-and-wine-a-review.pdf).</i>
+</details>
+
+<details>
+
+<summary><b>Density (g/mL)</b></summary>
+
+<i>It is an important parameter for monitoring the fermentation process. Once stabilized, it can be related to the smoothness of the wine.</i>
+</details>
+
+<details>
+
+<summary><b>pH</b></summary>
+
+<i>It is a [measure of the acidity of wine](https://www.awri.com.au/industry_support/winemaking_resources/frequently_asked_questions/acidity_and_ph/). A high pH means that there are more free hydrogen ions available to bind with free sulfur dioxide. Therefore, these two parameters must combine to provide the perfect sensation of desired acidity and prevent the deterioration of the wine.</i>
+</details>
+
+<details>
+
+<summary><b>Alcohol (%)</b></summary>
+
+<i>It acts as a preservative, but also is responsible for the [burning feeling](https://vinaliawine.com/blogs/our-journal/alcohol-and-its-role-in-wine?srsltid=AfmBOoooYR_PZUzfbiqLh8isStKaKnK6DNTravGMLjqb9kQZBiRmL9m6) of the wine</i>
+</details>
 
 </details>
+
+The correct classification of wines is extremely importante for producers and wine distribuitors. The selling on wines incorrectly classified can turn into refund. 
+
+For that reason, I developed a customizable algorithm for different bussiness case. The general accuracy of the algorithm was almost 74%, but assuming that all quality of wines have the same importance, which is not always the case, because if a merchant sells more wine of a specific quality, it is important that he has a better performance on this category, than the other ones, reducing the refund cost. The customization of the algorithm is explained on the section [Fine-Tuning](#Fine-Tuning). 
 
 For that, I tested four different classification algorithms with slightly different characteristics: 
 1. <b>Logistic Regression:</b> (# talk about some of its charracteristics); 
@@ -139,6 +182,7 @@ There were no <b>null</b> or <b>duplicated</b> data in the dataFrame, as was che
 </tr>
 <tr>
 <td>
+<pre>
     - constant: 163.6875<br>
     - quality: 1.4843<br>
     - percentage of alcohol density: 1.4777<br>
@@ -148,6 +192,7 @@ There were no <b>null</b> or <b>duplicated</b> data in the dataFrame, as was che
     - total acidity: 1.2413<br>
     - free sulfur dioxide percentage: 1.1391<br>
     - residual sugar: 1.0540<br>
+</pre>
 </td>
 <td>
     <img src="figs-results/heatmap_modifiedFeatures.png" height='700' width="700" />
@@ -236,7 +281,7 @@ And we can save the trained model for further improvement, with the library <i>p
     pickle.dump(model, file_model)
 ```
 
-<h3><b>Fine-Tuning with Bussiness Knowledge</b></h3>
+<h3 id = "Fine-Tuning"><b>Fine-Tuning with Bussiness Knowledge</b></h3>
 
 The model is optimized for the general case where the client buys a balanced amount of wines of class 1 and class 2, but there are some relevant parameters we can include to improve the perfomance of the model for each type of client: the price of the wines of different classes (or the average of the prices), and the amount of buying of each class of wine for a specific group of clients. Our main goal is to reduce the false positives, supposing that every misclassified wine will become refund, or credit for posterior transactions.
 
