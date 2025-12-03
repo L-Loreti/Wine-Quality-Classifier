@@ -16,7 +16,7 @@ Click on "<i>Wine Parameters</i>" to get more information about the features of 
 
 <details>
 
-<summary><h3><b>Wine Parameters</b></h3></summary>
+<summary><h3><b><i>Wine Parameters</i></b></h3></summary>
 
 <details>
 <summary><b>Fixed Acidity (g/L)</b></summary>
@@ -94,16 +94,6 @@ Click on "<i>Wine Parameters</i>" to get more information about the features of 
 </details>
 
 The information about the model development is provided on the following tabs. Just <b>click on it</b> to open the explanation.
-
-For that, I tested four different classification algorithms with slightly different characteristics: 
-1. <b>Logistic Regression:</b> (# talk about some of its charracteristics); 
-2. <b>Linear Discriminant Analysis:</b> which assumes that the variables are described by a gaussian distribution and has the same variance;
-3. <b>Quadratic Discriminant Analysis:</b> which also assumes a gaussian distribution but not the same covariance matrix, what gives a quadratic decision boundary for the classification;
-4. <b>Gaussian Naive Bayes:</b> (# talk about its characteristics).
-
-Choosing the best performant algorithm, where the process is described on the following sections, I was able to achive ## % of accuracy, depending on the bussiness strategy, as described on the section ## (ref to the bussiness strategy section).
-
-</details>
 
 <details>
 
