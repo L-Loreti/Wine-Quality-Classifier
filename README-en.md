@@ -307,7 +307,7 @@ The figure below shows the <b>cost function</b> (<i>top left</i>), the <b>relati
 
 Optimizing the cost function, we have:
 <ul>
-    <li><b>Minimum cost function:</b> R$ 47,596.15, representing 21.1% of total sales</li>
+    <li><b>Minimum cost function:</b> R$ 47,596.15, representing 21.1% of total sales, and an improvement of 22% with respecto to the non-optimized algorithm</li>
     <li><b>Class 1 accuracy:</b> 84.6%</li>
     <li><b>Class 2 accuracy:</b> 70.2%</li>
     <li><b>Overall accuracy:</b> 74.1%</li>
