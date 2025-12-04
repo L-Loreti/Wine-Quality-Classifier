@@ -19,55 +19,55 @@ Clique em “<i>Parâmetros do vinho</i>” para obter mais informações sobre 
 <summary><h3><b><i>Parâmetros do vinho</i></b></h3></summary>
 
 <details>
-<summary><b>Fixed Acidity (g/L)</b></summary>
+<summary><b>Acidez Fixa (g/L)</b></summary>
 
 <i>Os ácidos são responsáveis pela "corpo", quanto maior a concentração, mais o vinho fica encorpado, azedo. Os [ácidos fixos](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) encontrados nos vinhos são o tartárico, o málico, o cítrico e o succínico.</i>
 </details>
 
 <details>
-<summary><b>Volatile Acidity (g/L)</b></summary>
+<summary><b>Acidez Volátil (g/L)</b></summary>
 
 <i>O [ácido volátil](https://www.awri.com.au/wp-content/uploads/2018/03/s1982.pdf) mais comum é o ácido acético, responsável pelo cheiro do vinho devido à evaporação. Além disso, o ácido sulfúrico também é um ácido volátil.</i>
 </details>
 
 <details>
-<summary><b>Citric Acid (g/L)</b></summary>
+<summary><b>Ácido Cítrico (g/L)</b></summary>
 
 <i>É um [ácido fixo](https://waterhouse.ucdavis.edu/whats-in-wine/fixed-acidity) encontrado na faixa de 0 a 0,5 g/L.</i>
 </details>
 
 <details>
-<summary><b>Residual Sugar (g/L)</b></summary>
+<summary><b>Açúcar Residual (g/L)</b></summary>
 
 <i>É o [açúcar natural](https://winefolly.com/deep-dive/what-is-residual-sugar-in-wine/) das uvas que permanece no vinho após a interrupção do processo de fermentação. Sua quantidade determina a doçura do vinho.</i>
 </details>
 
 <details>
-<summary><b>Chlorides (g/L)</b></summary>
+<summary><b>Cloretos (g/L)</b></summary>
 
 <i>Os cloretos influenciam a “suavidade” e a persistência do sabor. As uvas cultivadas em regiões próximas ao mar tendem a produzir um suco com maior [teor de cloreto](https://www.awri.com.au/wp-content/uploads/2018/08/s1530.pdf).</i>
 </details>
 
 <details>
-<summary><b>Sulphates (g/L)</b></summary>
+<summary><b>Sulfatos (g/L)</b></summary>
 
 <i>Os sulfatos são responsáveis pela [atividade antioxidante e antimicrobiana](https://www.lasommeliere.com/en/blog/sulfites-in-wine-what-are-they-and-what-do-they-do--n520), atuando como conservantes para os vinhos.</i>
 </details>
 
 <details>
-<summary><b>Free Sulfur Dioxide (mg/L)</b></summary>
+<summary><b>Dióxido de Enxofre Livre (mg/L)</b></summary>
 
 <i>Tal como os sulfatos, o [dióxido de enxofre livre](https://extension.okstate.edu/fact-sheets/understanding-free-sulfur-dioxide-fso2-in-wine.html) atua como conservante no vinho. Tende a ligar-se a outras moléculas, perdendo a sua ação conservante.</i>
 </details>
 
 <details>
-<summary><b>Total Sulfur Dioxide (mg/L)</b></summary>
+<summary><b>Dióxido de Enxofre Total (mg/L)</b></summary>
 
 <i>Basicamente, é a [soma do dióxido de enxofre livre e do dióxido de enxofre ligado](https://www.oiv.int/public/medias/7840/oiv-collective-expertise-document-so2-and-wine-a-review.pdf).</i>
 </details>
 
 <details>
-<summary><b>Density (g/mL)</b></summary>
+<summary><b>Densidade (g/mL)</b></summary>
 
 <i>É um parâmetro importante para monitorar o processo de fermentação. Uma vez estabilizada, pode estar relacionada com a suavidade do vinho.</i>
 </details>
@@ -79,7 +79,7 @@ Clique em “<i>Parâmetros do vinho</i>” para obter mais informações sobre 
 </details>
 
 <details>
-<summary><b>Alcohol (%)</b></summary>
+<summary><b>Álcool (%)</b></summary>
 
 <i>Atua como conservante, mas também é responsável pela [sensação de queimação](https://vinaliawine.com/blogs/our-journal/alcohol-and-its-role-in-wine?srsltid=AfmBOoooYR_PZUzfbiqLh8isStKaKnK6DNTravGMLjqb9kQZBiRmL9m6) do vinho</i>
 </details>
@@ -92,7 +92,7 @@ As informações sobre o desenvolvimento do modelo são fornecidas nas seguintes
 
 <details>
 
-<summary><i>Criando um banco de dados SQL e conectando o Python ao banco de dados SQL Server</i></summary>
+<summary><i><b>Criando um banco de dados SQL e conectando o Python ao banco de dados SQL Server</b></i></summary>
 
 <h2><b>
     Criando um banco de dados SQL e conectando o Python ao banco de dados SQL Server
@@ -112,5 +112,223 @@ query = 'SELECT * FROM WineData'
 
 wine = pd.read_sql(query, con = connection)
 ```
+
+</details>
+
+<details>
+
+<summary><i><b>Manipulação dos dados</b></i></summary>
+
+<h3><b>Manipulação dos dados</b></h3>
+
+Não havia dados <b>nulos</b> ou <b>duplicados</b> no dataFrame, conforme verificado com os comandos <i>.info()</i> e <i>.duplicated().sum()</i>, mas os dados estão altamente desequilibrados, como pode ser visto no histograma a seguir.
+
+<p align = 'center'>
+    <img src="figs-results/Unbalanced dataset.png" height = '500' width = '450'
+     alt = 'Histograma com as contagens para o target (qualidade), com as classes originais.'>
+</p>
+
+Isso leva a um grave overfitting às classes que têm mais dados.
+
+Além disso, algumas features apresentaram uma <b>alta correlação binária</b>, o que pode ser observado no gráfico da matriz de correlação usando a <b>correlação de Pearson</b>, e algumas delas também apresentaram um alto <b>Variance Inflation Factor (VIF)</b>, o que indica <b>multicolinearidade</b> que pode afetar a precisão das estimativas dos coeficientes e degradar o poder inferencial dos modelos.
+
+<table align = 'center'>
+<tr>
+<th>VIF (ordem decresc.)</th>
+<th>Heatmap</th>
+</tr>
+<tr>
+<td>
+<pre>
+    - constante: 1.7108e6<br>
+    - acidez fixa: 7.7845<br>
+    - densidade: 6.5979<br>
+    - álcool: 3.4108<br>
+    - pH: 3.4034<br>
+    - ácido cítrico: 3.2245<br>
+    - dióxido de enxofre total: 2.1243<br>
+    - dióxido de enxofre livre: 1.9075<br>
+    - acidez volátil: 1.8799<br>
+    - açúcar residual: 1.7441<br>
+    - qualidade: 1.5981<br>
+    - cloretos: 1.5545<br>
+    - sulfatos: 1.4955<br>
+</pre>
+</td>
+<td>
+    <img src="figs-results/heatmap_originalFeatures.png" height='700' width="700" />
+</td>
+</tr>
+</table>
+
+<h3><b>Criação de features e recombinação de categorias</b></h3>
+
+Para resolver o problema do alto VIF e da correlação binária entre as variáveis <b>acidez fixa</b>, <b>ácido cítrico</b>, <b>densidade</b>, <b>álcool</b> e <b>dióxido de enxofre total</b>, é possível criar novas variáveis representativas:
+<ul>
+    <li><b>acidez total</b> = acidez fixa + acidez volátil</li>
+    <li><b>porcentagem de ácido cítrico</b> = ácido cítrico/acidez total</li>
+    <li><b>porcentagem de dióxido de enxofre livre</b> = dióxido de enxofre livre/dióxido de enxofre total</li>
+    <li><b>porcentagem de densidade alcoólica</b> = álcool/(100*densidade)</li>
+</ul>
+
+Avaliando a correlação de Pearson e o VIF, vemos que a multicolinearidade e a correlação binária foram mitigadas e, na verdade, o target (qualidade) é a variável que pode ser melhor explicada pelas outras features (a constante apenas indica que as features têm uma componente constante importante).
+
+<table align = 'center'>
+<tr>
+<th>VIF (ordem decresc.)</th>
+<th>Heatmap</th>
+</tr>
+<tr>
+<td>
+<pre>
+    - constante: 163.6875<br>
+    - qualidade: 1.4843<br>
+    - porcentagem de densidade alcoólica: 1.4777<br>
+    - porcentagem de ácido cítrico: 1.4178<br>
+    - suflatos: 1.3602<br>
+    - cloretos: 1.3567<br>
+    - acidez total: 1.2413<br>
+    - porcentagem de SO2 livre: 1.1391<br>
+    - açúcar residual: 1.0540<br>
+</pre>
+</td>
+<td>
+    <img src="figs-results/heatmap_modifiedFeatures.png" height='700' width="700" />
+</td>
+</tr>
+</table>
+
+Para resolver o problema do desbalanceamento na quantidade de dados de determinadas classes, combinei os vinhos de qualidade <b>3</b>, <b>4</b> e <b>5</b>, formando a qualidade de <i>vinhos intermediários</i>, e as classes <b>6</b>, <b>7</b> e <b>8</b> como vinhos de <i>qualidade premium</i>, como pode ser visto nno próximo histograma.
+
+<p align = 'center'>
+    <img src="figs-results/Balanced dataset.png" height = '500' width = '450'
+     alt = 'Histograma com as contagens para o target (qualidade), com as classes modificadas.'>
+</p>
+
+Também verifiquei o gráfico de dispersão das [features](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/figs-results/scatter_plot_withoutTarget_modifiedFeatures.png) para verificar se não havia nenhum padrão que o coeficiente de correlação de Pearson não detectasse, e o gráfico de dispersão das [features com o target](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/figs-results/scatter_plot_withTarget_modifiedFeatures.png) para ver se conseguia perceber qual característica poderia explicar melhor o alvo. Inicialmente, parece que a característica “porcentagem de densidade alcoólica” é a única que apresenta um padrão em relação ao target. 
+
+</details>
+
+<details>
+
+<summary><i><b>Seleção entre modelos</b></i></summary>
+
+<h2><b>Seleção entre modelos</b></h2>
+
+Selecionei quatro algoritmos de classificação diferentes com características ligeiramente diferentes para verificar o melhor para o nosso conjunto de dados:
+1. <b>Regressão logística (LR):</b> é um <i>modelo linear facilmente interpretável</i>;
+2. <b>Linear Discriminant Analysis (LDA):</b> também é <i>linear</i>, porém pressupõe que as features são descritas por uma <i>distribuição gaussiana</i> e têm a <i>mesma variância</i>;
+3. <b>Quadratic Discriminant Analysis (QDA):</b> também pressupõe uma <i>distribuição gaussiana</i>, mas <i>não a mesma matriz de covariância</i>, o que resulta em um <i>boundary threshold quadrático</i>;
+4. <b>Gaussian Naive Bayes (GNB):</b> considera que os dados são <i>gaussianos</i> e <i>estatisticamente independentes</i>.
+
+<h3>Separação do conjunto de dados de treinamento e teste</h3>
+
+O conjunto de teste terá 25% dos dados totais. Utilizei uma <i>seed</i> específica para a separação, mantendo a reproducibilidade.
+
+```python
+test_size_ = 0.25
+xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size = test_size_, random_state = 42)
+```
+
+<h3><b>Forward feature selection com cross-validation</b></h3>
+
+Para escolher o melhor algoritmo para o conjunto de dados, <b>SequentialFeatureSelector</b> da biblioteca <b>sklearn</b>, para verificar quais features resultavam nas melhores predições, usando a métrica <b>accuracy</b> com o <b>método de validação cruzada</b>, conforme fornecido pela minha função [<b>get_best_features(...) </b>](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/src/functions.py).
+
+Mais uma vez, para garantir a reprodutibilidade dos resultados, configurei o <b>KFold generator</b> com uma seed específica,
+```python
+n_folds = 10
+kf = KFold(n_splits=n_folds, shuffle=True, random_state = 81)
+```
+
+Armazenei o nome das features em um arquivo .txt para treinamento posterior, porque o <b>SequentialFeatureSelector</b> não mostra as predições em si.
+
+</details>
+
+<details>
+
+<summary><i><b>Treinamento dos modelos</b></i></summary>
+
+<h2><b>Treinamento dos modelos</b></h2>
+
+Usando a mesma seed para o KFold generator, [treinei](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/src/model_training.py) os modelos com as melhores features selecionadas, checando a acurácia por categoria de vinho, e a acurácia geral, como disposto na próxima figura.
+
+<p align = "center">
+    <img src="figs-results/Model Accuracies, folds=10.png">
+</p>
+
+A validação cruzada nos permite visualizar a generalização do modelo no conjunto de treinamento, através do desvio padrão.
+
+Analisando o gráfico, vemos que o modelo GNB, com [quatro features](figs-results/Model_accuracies_different_classes_folds=10.txt), teve a melhor performance. De fato, o GNB e o LDA performaram de modo similar, indicando que as features apresentam comportamento aproximadamente gaussiano, e suas variâncias não são tão distintas, o que explica a performance ruim do QDA.
+
+</details>
+
+<details>
+
+<summary><i><b>Teste e ajuste fino do modelo</b></i></summary>
+
+<h2><b>Teste e ajuste fino do modelo</b></h2>
+
+O algoritmo escolhido, GNB com quatro features, foi [avaliado](src/model_test.py) no conjunto de testes. A acurácia por categoria de vinho, e no geral foram as seguintes:
+<ul>
+    <li><b>Acurácia na Classe 1:</b> 70,5 %</li>
+    <li><b>Acurácia na Classe 2:</b> 76,4 %</li>
+    <li><b>Acurácia geral:</b> 73,8 %</li>
+</ul>
+
+Assim, o modelo foi salvo com a biblioteca <i>pickle</i>, para posterior otimização com conhecimento de negócio.
+
+```python
+    file_model = open('Trained model.pkl', 'wb')
+    pickle.dump(model, file_model)
+```
+
+<h3><b>Ajuste fino com conhecimento de negócio</b></h3>
+
+O modelo está otimizado para o caso geral, em que os clientes compram a mesma quantidade de vinhos de ambas as classes, porém, há outros parâmetros relevantes que podemos introduzir, como por exemplo o preço dos vinhos das diferentes classes (uma média), e a quantidade de vinhos de cada classe comprada por determinado grupo de cliente. O <b>objetivo geral</b> do ajuste fino, é <b>diminuir a quantidade de falsos positivos</b>, i.e., classificações errôneas, pois isso pode gerar prejuízos à companhia, na forma de <b>reembolso</b>, ou <b>crédito para transações posteriores</b>.
+
+<h3><b>Case de negócio</b></h3>
+
+Suponhamos que há um grupo de clientes com perfil de compra similar. Em um mês, normalmente compram <b>3000</b> vinhos classe 1 ($q_{1}$), e <b>1000</b> vinhos classe 2 ($q_{2}$). Se a média de preços dos vinhos classe 1 ($p_{1}$) é <b>R$ 45,00</b>, e classe 2 ($p_{2}$) é <b>R$ 90,00</b>, a receita total é <b>R$ 225.000,00</b>. Com o modelo não otimizado, temos aproximadamente <b>29,5%</b> de falsos positivos para a classe 1 ($fp_{1}$), e aproximadamente <b>23,6%</b> para a classe 2 ($fp_{1}$). Considerando a seguinte função custo (C):  
+<p align = 'center'>
+$$C = fp_{1} \cdot q_{1} \cdot p_{1} + fp_{2} \cdot q_{2} \cdot p_{2}$$
+</p>
+o prejuízo seria de <b>R$ 61.065,00</b>, i.e., <b>27,14%</b> da receita total.
+
+O ajuste fino cosiste em encontrar um threshold para o algortimo, que minimize a função custo. Para tanto, podemos utilizar os diferentes thresholds fornecidos pela ROC curve.
+
+<p align = 'center'>
+    <img src = 'figs-results/AUC_ROC_curve.png' height = 500 width = 450/>
+</p>
+
+A figura abaixo apresenta a <b>função custo</b> (<i>topo esquerdo</i>), a <b>relação entre os falsos positivos da classe 1 e 2 com diferentes thresholds</b> (<i>topo direito</i>), a <b>acurácia de ambas as classes</b> (<i>figuras do meio</i>), e a <b>acurácia geral para diferentes thresholds</b> (<i>figura inferior</i>).
+
+<p align = 'center'>
+    <img src = 'figs-results/Fine-Tuning.png'/>
+</p>
+
+Otimizando a função custo, temos:
+<ul>
+    <li><b>Mínimo da função custo:</b> R$ 47.596,15, que representa 21,1% do total de vendas</li>
+    <li><b>Acurácia da classe 1:</b> 84,6 %</li>
+    <li><b>Acurácia da classe 2:</b> 70,2 %</li>
+    <li><b>Acurácia geral:</b> 74,1 %</li>
+</ul>
+
+</details>
+
+<details>
+
+<summary><b><i>Próximos passos</i></b></summary>
+
+<h2><b>Próximos passos</b></h2>
+
+Com o conhecimento de negócio, é possível otimizar ainda mais o modelo. Por exemplo:
+
+<ol>
+    <li>Se for possível aglomerar os clientes em grupos específicos, pelo perfil de compra, é possível escolher um threshold mais adequado, diminuindo o prejuízo;</li>
+    <li>Através de conversas com tomadores de decisão, e o time de inteligência de negócios, é possível decidir otimizar algum outro parâmetro, como por exemplo a <b>acurácia geral</b>, e isso é facilmente realizado no meu código;</li>
+    <li>Para melhorar a resolução do algoritmo, i.e., conseguir classificar os vinhos em todas as suas classes, é necessário um estudo mais aprofundado dos tipos de dados que podem ser extraídos. Além de necessitar de uma maior quantidade para as classes de qualidade menor e maior;</li>
+    <li>E como sempre, o modelo precisa ser contiuamente verificado.</li>
+</ol>
 
 </details>
