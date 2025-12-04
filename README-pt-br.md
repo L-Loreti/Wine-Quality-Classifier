@@ -10,7 +10,7 @@ A classificação correta da qualidade dos vinhos é extremamente importante par
 
 Usei o Banco de Dados de Qualidade do Vinho fornecido pelo artigo “[Modelagem de preferências de vinho por mineração de dados a partir de propriedades físico-químicas](https://www.sciencedirect.com/science/article/abs/pii/S0167923609001377?via%3Dihub)”. Os pesquisadores utilizaram o algoritmo <b>Support Vector Machine (SVM)</b> para prever a qualidade dos vinhos, mas não conseguiram bons resultados, com precisão de aproximadamente 63%. Isso mostra que a previsão da qualidade do vinho não é uma tarefa fácil, e talvez seja devido à distribuição desequilibrada dos dados, como discuto na seção “Manipulação de dados”.
 
-Minha proposta é combinar algumas qualidade de vinho em uma única categoria para equilibrar a distribuição dos dados. Além disso, foi realizado um processo de engenharia e seleção de features, que eliminou a multicolinearidade entre elas, e sobre a parte de treinamento, foi aplicado o procedimento de cross-validation, que proporcionou uma boa generalização do melhor algoritmo, sugerida por seu desempenho no conjunto de dados de teste. No final, o conhecimento de negócios foi aplicado para melhorar ainda mais as previsões. 
+Minha proposta é combinar algumas qualidades de vinho em uma única categoria para equilibrar a distribuição dos dados. Além disso, foi realizado um processo de engenharia e seleção de features, que eliminou a multicolinearidade entre elas, e sobre a parte de treinamento, foi aplicado o procedimento de cross-validation, que proporcionou uma boa generalização do melhor algoritmo, sugerida por seu desempenho no conjunto de dados de teste. No final, o conhecimento de negócios foi aplicado para melhorar ainda mais as previsões. 
 
 Clique em “<i>Parâmetros do vinho</i>” para obter mais informações sobre as características do banco de dados.
 
@@ -185,7 +185,7 @@ Avaliando a correlação de Pearson e o VIF, vemos que a multicolinearidade e a 
     - qualidade: 1.4843<br>
     - porcentagem de densidade alcoólica: 1.4777<br>
     - porcentagem de ácido cítrico: 1.4178<br>
-    - suflatos: 1.3602<br>
+    - sulfatos: 1.3602<br>
     - cloretos: 1.3567<br>
     - acidez total: 1.2413<br>
     - porcentagem de SO2 livre: 1.1391<br>
@@ -294,7 +294,7 @@ $$C = fp_{1} \cdot q_{1} \cdot p_{1} + fp_{2} \cdot q_{2} \cdot p_{2}$$
 </p>
 o prejuízo seria de <b>R$ 61.065,00</b>, i.e., <b>27,14%</b> da receita total.
 
-O ajuste fino cosiste em encontrar um threshold para o algortimo, que minimize a função custo. Para tanto, podemos utilizar os diferentes thresholds fornecidos pela ROC curve.
+O ajuste fino consiste em encontrar um threshold para o algortimo, que minimize a função custo. Para tanto, podemos utilizar os diferentes thresholds fornecidos pela ROC curve.
 
 <p align = 'center'>
     <img src = 'figs-results/AUC_ROC_curve.png' height = 500 width = 450/>
@@ -308,7 +308,7 @@ A figura abaixo apresenta a <b>função custo</b> (<i>topo esquerdo</i>), a <b>r
 
 Otimizando a função custo, temos:
 <ul>
-    <li><b>Mínimo da função custo:</b> R$ 47.596,15, que representa 21,1% do total de vendas</li>
+    <li><b>Mínimo da função custo:</b> R$ 47.596,15, que representa 21,1% do total de vendas, e uma melhora de 22% em relação ao algoritmo não otimizado</li>
     <li><b>Acurácia da classe 1:</b> 84,6 %</li>
     <li><b>Acurácia da classe 2:</b> 70,2 %</li>
     <li><b>Acurácia geral:</b> 74,1 %</li>
