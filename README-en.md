@@ -92,7 +92,7 @@ The information about the model development is provided on the following tabs. J
 
 <details>
 
-<summary><i>Creating an SQL database and connecting Python to the SQL Server database</i></summary>
+<summary><i><b>Creating an SQL database and connecting Python to the SQL Server database</b></i></summary>
 
 <h2><b>
     Creating an SQL database and connecting Python to the SQL Server database
@@ -117,20 +117,20 @@ wine = pd.read_sql(query, con = connection)
 
 <details>
 
-<summary><i>Data manipulation</i></summary>
+<summary><i><b>Data manipulation</b></i></summary>
 
 <h3><b>Data manipulation</b></h3>
 
-There were no <b>null</b> or <b>duplicated</b> data in the dataFrame, as was checked with the <i>.info()</i> and <i>.duplicated().sum()</i> commands, but the data is highly imbalanced as can be seen with the following histogram.
+There were no <b>null</b> or <b>duplicated</b> data in the dataframe, as verified with the commands <i>.info()</i> and <i>.duplicated().sum()</i>, but the data is highly unbalanced, as can be seen with the following histogram.
 
 <p align = 'center'>
-    <img src="figs-results/Unbalanced dataset.png" height = '550' width = '550'
-     alt = 'Histogram with the counts for the target variable (quality), with the original classes.'>
+    <img src="figs-results/Unbalanced dataset.png" height = '500' width = '450'
+     alt = 'Histogram with counts for the target variable (quality), with the original classes.'>
 </p>
 
-<p>This leads to serious overfitting to the classes that has more data.</p>
+This leads to a serious overfitting to the classes that have more data.
 
-<p>In addition, some features showed a high <b>binary correlation</b>, which can be observed in the matrix correlation graph using <b>Pearson's correlation</b>, and some of them also showed a high <b>Variance Inflation Factor</b> (VIF), which indicates <b>multicollinearity</b> that can affect the accuracy of the coefficient estimates and degrade the inferential power of the models.</p>
+In addition, some characteristics showed a <b>high pairwise correlation</b>, which can be observed in the correlation matrix graph using <b>Pearson's correlation</b>, and some of them also had a <b>high Variance Inflation Factor (VIF)</b>, which indicates <b>multicollinearity</b> that can affect the accuracy of coefficient estimates and degrade the inferential power of the models.
 
 <table align = 'center'>
 <tr>
@@ -161,19 +161,18 @@ There were no <b>null</b> or <b>duplicated</b> data in the dataFrame, as was che
 </tr>
 </table>
 
-<h3><b>
-    Feature Creation and Classes Reclassification
-</b></h3>
+<h3><b>Feature creation and reclassification of classes</b></h3>
 
-<p>To solve the problem of the high VIF and binary correlation between the variables <b>fixed acidity</b>, <b>citric acid</b>, <b>density</b>, <b>alcohol</b> and <b>total sulful dioxide</b>, it is possible to create new representative variables:</p>
+To solve the problem of high VIF and binary correlation between the variables <b>fixed acidity</b>, <b>citric acid</b>, <b>density</b>, <b>alcohol</b>, and <b>total sulfur dioxide</b>, it is possible to create new representative variables:
 <ul>
-    <li><b>total acidity</b> = fixe acidity + volatile acidity</li>
+    <li><b>total acidity</b> = fixed acidity + volatile acidity</li>
     <li><b>citric acid percentage</b> = citric acid/total acidity</li>
     <li><b>free sulfur dioxide percentage</b> = free sulfur dioxide/total sulful dioxide</li>
-    <li><b>percentage of alcohol density</b> = alcohol/(100*density) (verificar se a divisão por 100 foi feita pq a densidade de alcool ficaria muito alta distoando da escala das outras variáveis)</li>
+    <li><b>percentage of alcohol density</b> = alcohol/(100*density)</li>
 </ul>
 
-<p>Evaluating the Pearson correlation and VIF we see that the multicolinearity and binary correlation were mitigated, and in fact, the target (quality) is the variable that is most related to the other variables, as we want. Of course, the constant param has the biggest VIF, but hits just indicates us that the quality cannot be explained by a constant value, which is pretty obvious (<i>verifica se é isso mesmo</i>).</p>
+Evaluating Pearson's correlation and VIF, we see that multicollinearity and binary correlation have been mitigated and, in fact, the target (quality) is the variable that can best be explained by the other features (the constant only indicates that the features have an important constant component).
+
 <table align = 'center'>
 <tr>
 <th>VIF (desc. order)</th>
@@ -199,133 +198,136 @@ There were no <b>null</b> or <b>duplicated</b> data in the dataFrame, as was che
 </tr>
 </table>
 
-And to solve the imbalanced dataset problem, first I tried to group the classes 3, 4 and 5, as a single class of "<i>low quality wines</i>", the class 6 was the "<i>intermediate quality wine</i>", and the classes 7 and 8 were grouped as the "<i>premium quality wines</i>", but this didn't showed good results, because the models overfitted to some of the classes, and the goal was to have a model that peforms good on all the classes. So, the final choice was to group the classes 3, 4 and 5 as a single class of "<i>entrance quality wines</i>", and classes 6, 7 and 8 as the "<i>premium quality wines</i>", and this corrected the classes imbalance as can be seen on the next figure.
+To solve the problem of imbalance in the amount of data for certain classes, I combined wines of quality <b>3</b>, <b>4</b>, and <b>5</b>, forming the quality of <i>intermediate wines</i>, and classes <b>6</b>, <b>7</b>, and <b>8</b> as <i>premium quality</i> wines, as can be seen on the next histogram.
 
 <p align = 'center'>
-    <img src="figs-results/Balanced dataset.png" height = '550' width = '550'
-     alt = 'Histogram with the counts for the target variable (quality), with the original classes.'>
+    <img src="figs-results/Balanced dataset.png" height = '500' width = '450'
+     alt = 'Histogram with counts for the target variable (quality), with modified classes.'>
 </p>
 
-I also checked the scatter plot of the [features with themselves](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/figs-results/scatter_plot_withoutTarget_modifiedFeatures.png) to verify if there wasn't any patterns that the Pearson's correlation coefficient wouldn't detect, and the scatter plot of the [features with the target](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/figs-results/scatter_plot_withTarget_modifiedFeatures.png) to see if I could get a sense of which feature could explain better the target. Initially, it looks like that the feature "<i>pecentage of alcohol density</i>" is the only one that has a pattern in relation with the target. 
+I also checked the scatter plot of the [features](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/figs-results/scatter_plot_withoutTarget_modifiedFeatures.png) to verify that there were no patterns that Pearson's correlation coefficient did not detect, and the scatter plot of the [features with the target](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/figs-results/scatter_plot_withTarget_modifiedFeatures.png) to see if I could figure out which feature could best explain the target. Initially, it seems that the “percentage of alcohol density” feature is the only one that shows a pattern in relation to the target. 
 
 </details>
 
 <details>
 
-<summary><i>Models Selection</i></summary>
+<summary><i><b>Selection between models</b></i></summary>
 
-<h2><b>Models Selection</b></h2>
+<h2><b>Selection between models</b></h2>
 
-I selected four different classification algorithms with slightly different characteristics to check the best one for our dataset: 
-1. <b>Logistic Regression:</b> (# talk about some of its charracteristics); 
-2. <b>Linear Discriminant Analysis:</b> which assumes that the variables are described by a gaussian distribution and has the same variance;
-3. <b>Quadratic Discriminant Analysis:</b> which also assumes a gaussian distribution but not the same covariance matrix, what gives a quadratic decision boundary for the classification;
-4. <b>Gaussian Naive Bayes:</b> (# talk about its characteristics).
+I selected four different classification algorithms with slightly different characteristics to check which one works best for our dataset:
+1. <b>Logistic regression:</b> it is an <i>easily interpretable linear</i> model;
+2. <b>Linear discriminant analysis:</b> it is also <i>linear</i>, but assumes that the features are described by a <i>Gaussian distribution</i> and have the <i>same variance</i>;
+3. <b>Quadratic discriminant analysis:</b> also assumes a <i>Gaussian distribution</i>, but <i>not the same covariance</i> matrix, which results in a <i>quadratic boundary threshold</i>;
+4. <b>Gaussian Naive Bayes:</b> considers that the data are <i>gaussian</i> and <i>statistically independent</i>.
 
-<h3>Split Dataset on Training and Testing portions</h3>
+<h3>Split dataset on training and testing portions</h3>
 
-To maintain an untouch portion of the data as the test portion, I used the <i>train_test_split</i> function. To ensure reproducibility, I always set a specific seed:
+The test set will contain 25% of the total data. I used a specific seed for the split, maintaining reproducibility.
 ```python
 test_size_ = 0.25
 xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size = test_size_, random_state = 42)
 ```
 
-<h3><b>Forward Feature Selection with Cross-Validation</b></h3>
+<h3><b>Forward feature selection with cross-validation</b></h3>
 
-In order to choose the best algorithm for our dataset, first, I checked which features gave the best results with the <b>SequentialFeatureSelector</b> function of the <b>sklearn</b> library, using the metric <b>accuracy</b> with the <b>cross-validation method</b>, as given by my built-in function [<b>get_best_features(...)</b>](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/src/functions.py).
+To choose the best algorithm for the dataset, <b>SequentialFeatureSelector</b> from the <b>sklearn</b> library, to check which features resulted in the best predictions, using the <b>accuracy</b> metric with the <b>cross-validation method</b>, as provided by my function [<b>get_best_features(...) </b>](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/src/functions.py).
 
-Again, to ensure reproducibility of the results, I settled the <b>KFold generator</b> with a specific seed,
+Once again, to ensure reproducibility of the results, I configured the <b>KFold generator</b> with a specific seed,
 ```python
 n_folds = 10
 kf = KFold(n_splits=n_folds, shuffle=True, random_state = 81)
 ```
-The function loops through the different models, checking which <b>combination of features</b>, from 1 to the hole number of features using the forwared selection, gave the best results. Then, I stored the name of these features on a .txt file for posterior formal training, because the <b>SequentialFeatureSelector</b> doesn't show the predictions itself.
+
+I stored the feature names in a .txt file for later training because the <b>SequentialFeatureSelector</b> does not show the predictions themselves.
 
 </details>
 
 <details>
 
-<summary><i>Model's Training</i></summary>
+<summary><i><b>Model's Training</b></i></summary>
 
 <h2><b>Model's Training</b></h2>
 
-Using the same KFold generator, I [trained](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/src/model_training.py) the models with the previously selected features, checking its accuracy on both classes and the general accuracy, as can be seen on the next figure.
+Using the same seed for the KFold generator, I [trained](https://github.com/L-Loreti/Wine-Quality-Classifier/blob/main/src/model_training.py) the models with the best selected features, checking the accuracy by wine category and the overall accuracy, as shown in the next figure.
+
 <p align = "center">
     <img src="figs-results/Model Accuracies, folds=10.png">
 </p>
 
-The cross-validation method allows us to visualize the generalization of the models by the standard deviation of the accuracies. 
+Cross-validation allows us to visualize the generalization of the model on the training set, through the standard deviation.
 
-Analysing the [accuracies](figs-results/Model_accuracies_different_classes_folds=10.txt) for each class, and the general accuracy, we get the Gaussian Naive Bayes, with four features given [here](figs-results/Best_Features.txt), as the best model of our trial. In fact, we see that both the Gaussian Naive Bayes, and the Linear Discriminant Analysis gives the best overall results, indicating that the data are best described by a gaussian distribution, and the covariance are not too different from each other, because the Quadratic Discriminant Analysis, which assumes that the covariances are different, is the worst performant (<i>check if these informations makes sense</i>).
+Analyzing the graph, we see that the GNB model, with [four features](figs-results/Model_accuracies_different_classes_folds=10.txt), had the best performance. In fact, GNB and LDA performed similarly, indicating that the features exhibit approximately Gaussian behavior, and their variances are not so distinct, which explains the poor performance of QDA.
 
 </details>
 
 <details>
 
-<summary><i>Model Testing and Fine Tuning</i></summary>
+<summary><i><b>Model testing and fine-tuning</b></i></summary>
 
-<h2><b>Model Testing and Fine Tuning</b></h2>
+<h2><b>Model testing and fine-tuning</b></h2>
 
-After choosing the best model on the training/validation dataset, we can [test it](src/model_test.py) on the test dataset. For that, I retrained the model with the correct features and the data training data set. Evaluating its accuracies over the test data set, we have,
+The chosen algorithm, GNB with four features, was evaluated on the test set. The accuracy by wine category and overall was as follows:
 <ul>
-    <li><b>Class 1 accuracy:</b> 70,5 %</li>
-    <li><b>Class 2 accuracy:</b> 76,4 %</li>
-    <li><b>General accuracy:</b> 73,8 %</li>
+    <li><b>Accuracy in Class 1:</b> 70.5%</li>
+    <li><b>Accuracy in Class 2:</b> 76.4%</li>
+    <li><b>Overall accuracy:</b> 73.8%</li>
 </ul>
 
-And we can save the trained model for further improvement, with the library <i>pickle</i>.
+Thus, the model was saved with the <i>pickle</i> library for later optimization with business knowledge.
 
 ```python
     file_model = open('Trained model.pkl', 'wb')
     pickle.dump(model, file_model)
 ```
 
-<h3><b>Fine Tuning with Bussiness Knowledge</b></h3>
+<h3><b>Fine-tune with business knowledge</b></h3>
 
-The model is optimized for the general case where the client buys a balanced amount of wines of class 1 and class 2, but there are some relevant parameters we can include to improve the perfomance of the model for each type of client: the price of the wines of different classes (or the average of the prices), and the amount of buying of each class of wine for a specific group of clients. Our main goal is to reduce the false positives, supposing that every misclassified wine will become refund, or credit for posterior transactions.
+The model is optimized for the general case, in which customers buy the same quantity of wines from both classes. However, there are other relevant parameters that we can introduce, such as the price of wines from different classes (an average) and the quantity of wines from each class purchased by a given group of customers. The <b>overall goal of fine-tuning</b> is to <b>reduce the number of false positives</b>, i.e., erroneous classifications, as this can cause losses to the company in the form of <b>refunds</b> or <b>credit for future transactions</b>.
 
 <h3><b>Bussiness Case</b></h3>
 
-Let's suppose that there is a group of clients with similar buying behaviour that buys 3000 wines of class 1, and 1000 wines of class 2, in one month. On average, each wine of class 1 costs R$ 45,00, and each wine of class 2 costs R$ 90,00, so the revenue equals <b>R$ 225.000,00</b>. With the original algorithm, a wine will be classified as class 1 if its predicted probability is greater then 50%, that is, the threshold is 50%. We can evaluate an optimized threshold to minimize the cost function:
-<p align = 'center'>
+Suppose there is a group of customers with similar purchasing profiles. In a month, they typically buy <b>3000</b> class 1 wines ($q_{1}$) and <b>1000</b> class 2 wines ($q_{2}$). If the average price of class 1 wines ($p_{1}$) is $45.00, and class 2 wines ($p_{2}$) is $90.00, the total revenue is $225,000. With the non-optimized model, we have approximately <b>29.5%</b> false positives for class 1 ($fp_{1}$), and approximately <b>23.6%</b> for class 2 ($fp_{1}$). Considering the following cost function (C):  
+<p align = ‘center’>
 $$C = fp_{1} \cdot q_{1} \cdot p_{1} + fp_{2} \cdot q_{2} \cdot p_{2}$$
 </p>
-where $fp_{i}$ is the false positive rates for the ith class, $q_{i}$ is the quantity of bottle wines bought of this class, and $p_{i}$ the average of its prices.
+the loss would be <b>R$ 61,065.00</b>, i.e., <b>27.14%</b> of total revenue.
 
-The <b>ROC curve</b> provides us with the thresholds for class 1 that changes the percentage of false positives for this class.
+Fine tuning consists of finding a threshold for the algorithm that minimizes the cost function. To do this, we can use the different thresholds provided by the ROC curve.
 
 <p align = 'center'>
-    <img src = 'figs-results/AUC_ROC_curve.png' height = 550 width = 500/>
+    <img src = 'figs-results/AUC_ROC_curve.png' height = 500 width = 450/>
 </p>
 
-With these thresholds, we can calculate the <b>cost function</b> (<i>top-left graph</i>), visualize the <b>relation between the false positives of class 1 and 2</b> (<i>top-right</i>), the <b>accuracy of both classes</b> (<i>middle-left</i> and <i>middle-right</i>, respectively), and the <b>general accuracy for this group of companies</b> (<i>bottom</i>).
+The figure below shows the <b>cost function</b> (<i>top left</i>), the <b>relationship between false positives in classes 1 and 2 with different thresholds</b> (<i>top right</i>), the accuracy of both classes (<i>middle figures</i>), and the overall accuracy for different thresholds (<i>bottom figure</i>).
 
 <p align = 'center'>
     <img src = 'figs-results/Fine-Tuning.png'/>
 </p>
 
-Optimizing the cost function, we get the following results:
+Optimizing the cost function, we have:
 <ul>
-    <li><b>Minimum of the cost function:</b> R$ 47.596,15, which represents 21,1 % of the amount of sales</li>
-    <li><b>Accuracy of class 1:</b> 84,6 %</li>
-    <li><b>Accuracy of class 2:</b> 70,2 %</li>
-    <li><b>General accuracy:</b> 74,1 %</li>
+    <li><b>Minimum cost function:</b> R$ 47,596.15, representing 21.1% of total sales</li>
+    <li><b>Class 1 accuracy:</b> 84.6%</li>
+    <li><b>Class 2 accuracy:</b> 70.2%</li>
+    <li><b>Overall accuracy:</b> 74.1%</li>
 </ul>
 
 </details>
 
 <details>
 
-<summary>Next Steps</summary>
+<summary><i><b>Next steps</b></i></summary>
 
-<h2><b>Next Steps</b></h2>
+<h2><b>Next steps</b></h2>
 
 With bussiness knowledge it is possible to optimize even further the algorithm, for example: 
 
 <ol>
-    <li>If it is possible to aglomerate buyers on specific groups, we can choose a threshold that provides them the best service possible;</li>
-    <li>Talking with stakeholders and the bussiness inteligence team, it is possible to decide to optimize another parameter, the <b>general accuracy</b> for example, and this is easily done on my code;</li>
-    <li>To improve the algorithm's resolution, that is, to be able to classify wines in all their categories, we need more data to eliminate the imbalance in the database. This is an essential step in providing a more accurate service.</li>
+    <li>If it is possible to group customers into specific groups based on their purchasing profile, it is possible to choose a more appropriate threshold, reducing losses;</li>
+    <li>Through conversations with stakeholders and the business intelligence team, it is possible to decide to optimize some other parameter, such as <b>general accuracy</b>, and this is easily done in my code;</li>
+    <li>To improve the algorithm's resolution, i.e., to be able to classify wines in all their classes, a more in-depth study of the types of data that can be extracted is necessary. In addition to requiring a larger amount for the lower and higher quality classes;</li>
+    <li>And as always, the model needs to be continuously verified.</li>
 </ol>
 
 </details>
