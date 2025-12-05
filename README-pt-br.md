@@ -270,9 +270,9 @@ Analisando o gráfico, vemos que o modelo GNB, com [quatro features](figs-result
 
 O algoritmo escolhido, GNB com quatro features, foi [avaliado](src/model_test.py) no conjunto de testes. A acurácia por categoria de vinho, e no geral foram as seguintes:
 <ul>
-    <li><b>Acurácia na Classe 1:</b> 70,5 %</li>
-    <li><b>Acurácia na Classe 2:</b> 76,4 %</li>
-    <li><b>Acurácia geral:</b> 73,8 %</li>
+    <li><b>Acurácia na Classe 1:</b> 76,6 %</li>
+    <li><b>Acurácia na Classe 2:</b> 74,1 %</li>
+    <li><b>Acurácia geral:</b> 75,2 %</li>
 </ul>
 
 Assim, o modelo foi salvo com a biblioteca <i>pickle</i>, para posterior otimização com conhecimento de negócio.
