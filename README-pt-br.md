@@ -306,7 +306,7 @@ A figura abaixo apresenta a <b>função custo</b> (<i>topo esquerdo</i>), a <b>r
     <img src = 'figs-results/fine_tuning.png'/>
 </p>
 
-Otimizando a função custo, vemos que o melhor threshold para a classe 1 é igual a 28,2%. Isso significa que a minimização da função custo admite uma maior tolerância quanto aos falsos positivos da classe 1. Em contrapartida, o threshold para a classe 2 é 71,8%, i.e., uma forte diminuição da tolerância com falsos positivos. Abaixo temos algumas métricas do algoritmos otimizado:
+Otimizando a função custo, vemos que o melhor <b>threshold para a classe 1 é igual a 28,2%</b>. Isso significa que a minimização da função custo admite uma <b>maior tolerância quanto aos falsos positivos da classe 1</b>. Em contrapartida, o <b>threshold para a classe 2 é 71,8%</b>, i.e., uma forte <b>diminuição da tolerância com falsos positivos</b>. Abaixo temos algumas métricas do algoritmos otimizado:
 <ul>
     <li><b>Mínimo da função custo:</b> R$ 30.065,27, que representa 20,04% do total de vendas, e uma melhora de aproximadamente 27% em relação ao algoritmo não otimizado</li>
     <li><b>Porcentagem de falsos positivos da classe 1:</b> 44,9%</li>
