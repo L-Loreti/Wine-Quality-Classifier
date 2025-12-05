@@ -288,11 +288,11 @@ O modelo está otimizado para o caso geral, em que os clientes compram a mesma q
 
 <h3><b>Case de negócio</b></h3>
 
-Suponhamos que há um grupo de clientes com perfil de compra similar. Em um mês, normalmente compram <b>3000</b> vinhos classe 1 ($q_{1}$), e <b>1000</b> vinhos classe 2 ($q_{2}$). Se a média de preços dos vinhos classe 1 ($p_{1}$) é <b>R$ 45,00</b>, e classe 2 ($p_{2}$) é <b>R$ 90,00</b>, a receita total é <b>R$ 225.000,00</b>. Com o modelo não otimizado, temos aproximadamente <b>29,5%</b> de falsos positivos para a classe 1 ($fp_{1}$), e aproximadamente <b>23,6%</b> para a classe 2 ($fp_{1}$). Considerando a seguinte função custo (C):  
+Suponhamos que há um grupo de clientes com perfil de compra similar. Em um mês, normalmente compram <b>1000</b> vinhos classe 1 ($q_{1}$), e <b>1500</b> vinhos classe 2 ($q_{2}$). Se a média de preços dos vinhos classe 1 ($p_{1}$) é <b>R$ 45,00</b>, e classe 2 ($p_{2}$) é <b>R$ 70,00</b>, a receita total é <b>R$ 150.000,00</b>. Com o modelo não otimizado, temos aproximadamente <b>24,1%</b> de falsos positivos para a classe 1 ($fp_{1}$), e aproximadamente <b>28,9%</b> para a classe 2 ($fp_{1}$). Considerando a seguinte função custo (C):  
 <p align = 'center'>
 $$C = fp_{1} \cdot q_{1} \cdot p_{1} + fp_{2} \cdot q_{2} \cdot p_{2}$$
 </p>
-o prejuízo seria de <b>R$ 61.065,00</b>, i.e., <b>27,14%</b> da receita total.
+o prejuízo seria de <b>R$ 41.174,35</b>, i.e., <b>27,45%</b> da receita total.
 
 O ajuste fino consiste em encontrar um threshold para o algortimo, que minimize a função custo. Para tanto, podemos utilizar os diferentes thresholds fornecidos pela ROC curve.
 
@@ -300,18 +300,18 @@ O ajuste fino consiste em encontrar um threshold para o algortimo, que minimize 
     <img src = 'figs-results/AUC_ROC_curve.png' height = 500 width = 450/>
 </p>
 
-A figura abaixo apresenta a <b>função custo</b> (<i>topo esquerdo</i>), a <b>relação entre os falsos positivos da classe 1 e 2 com diferentes thresholds</b> (<i>topo direito</i>), a <b>acurácia de ambas as classes</b> (<i>figuras do meio</i>), e a <b>acurácia geral para diferentes thresholds</b> (<i>figura inferior</i>).
+A figura abaixo apresenta a <b>função custo</b> (<i>topo esquerdo</i>), a <b>relação entre os falsos positivos da classe 1 e 2 com diferentes thresholds</b> (<i>topo direito</i>), os <b>falsos positivos para cada classe</b> (<i>figuras do meio</i>), e a <b>acurácia geral para diferentes thresholds</b> (<i>figura inferior</i>).
 
 <p align = 'center'>
-    <img src = 'figs-results/Fine-Tuning.png'/>
+    <img src = 'figs-results/fine_tuning.png'/>
 </p>
 
-Otimizando a função custo, temos:
+Otimizando a função custo, vemos que o melhor threshold para a classe 1 é igual a 28,2%. Isso significa que a minimização da função custo admite uma maior tolerância quanto aos falsos positivos da classe 1. Em contrapartida, o threshold para a classe 2 é 71,8%, i.e., uma forte diminuição da tolerância com falsos positivos. Abaixo temos algumas métricas do algoritmos otimizado:
 <ul>
-    <li><b>Mínimo da função custo:</b> R$ 47.596,15, que representa 21,1% do total de vendas, e uma melhora de 22% em relação ao algoritmo não otimizado</li>
-    <li><b>Acurácia da classe 1:</b> 84,6 %</li>
-    <li><b>Acurácia da classe 2:</b> 70,2 %</li>
-    <li><b>Acurácia geral:</b> 74,1 %</li>
+    <li><b>Mínimo da função custo:</b> R$ 30.065,27, que representa 20,04% do total de vendas, e uma melhora de aproximadamente 27% em relação ao algoritmo não otimizado</li>
+    <li><b>Porcentagem de falsos positivos da classe 1:</b> 44,9%</li>
+    <li><b>Porcentagem de falsos positivos da classe 2:</b> 9,4%</li>
+    <li><b>Acurácia geral:</b> 70,98%</li>
 </ul>
 
 </details>
