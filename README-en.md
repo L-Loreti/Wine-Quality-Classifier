@@ -287,11 +287,11 @@ The model is optimized for the general case, in which customers buy the same qua
 
 <h3><b>Bussiness Case</b></h3>
 
-Suppose there is a group of customers with similar purchasing profiles. In a month, they typically buy <b>3000</b> class 1 wines ($q_{1}$) and <b>1000</b> class 2 wines ($q_{2}$). If the average price of class 1 wines ($p_{1}$) is $45.00, and class 2 wines ($p_{2}$) is $90.00, the total revenue is $225,000. With the non-optimized model, we have approximately <b>29.5%</b> false positives for class 1 ($fp_{1}$), and approximately <b>23.6%</b> for class 2 ($fp_{1}$). Considering the following cost function (C):  
+Suppose there is a group of customers with similar purchasing profiles. In a month, they typically buy <b>1000</b> class 1 wines ($q_{1}$) and <b>1500</b> class 2 wines ($q_{2}$). If the average price of class 1 wines ($p_{1}$) is R$45,00, and class 2 wines ($p_{2}$) is R$70,00, the total revenue is R$150.000,00. With the non-optimized model, we have approximately <b>24,1%</b> false positives for class 1 ($fp_{1}$), and approximately <b>28,9%</b> for class 2 ($fp_{1}$). Considering the following cost function (C):  
 <p align = ‘center’>
 $$C = fp_{1} \cdot q_{1} \cdot p_{1} + fp_{2} \cdot q_{2} \cdot p_{2}$$
 </p>
-the loss would be <b>R$ 61,065.00</b>, i.e., <b>27.14%</b> of total revenue.
+the loss would be <b>R$ 41.174,35</b>, i.e., <b>27,45%</b> of total revenue.
 
 Fine tuning consists of finding a threshold for the algorithm that minimizes the cost function. To do this, we can use the different thresholds provided by the ROC curve.
 
@@ -299,18 +299,18 @@ Fine tuning consists of finding a threshold for the algorithm that minimizes the
     <img src = 'figs-results/AUC_ROC_curve.png' height = 500 width = 450/>
 </p>
 
-The figure below shows the <b>cost function</b> (<i>top left</i>), the <b>relationship between false positives in classes 1 and 2 with different thresholds</b> (<i>top right</i>), the accuracy of both classes (<i>middle figures</i>), and the overall accuracy for different thresholds (<i>bottom figure</i>).
+The figure below shows the <b>cost function</b> (top left), the <b>relationship between false positives in classes 1 and 2 with different thresholds</b> (top right), the <b>false positives for each class</b> (middle figures), and the <b>overall accuracy for different thresholds</b> (bottom figure).
 
 <p align = 'center'>
-    <img src = 'figs-results/Fine-Tuning.png'/>
+    <img src = 'figs-results/fine_tuning.png'/>
 </p>
 
-Optimizing the cost function, we have:
+By optimizing the cost function, we see that the best <b>threshold for class 1 is equal to 28,2%</b>. This means that minimizing the cost function allows for <b>greater tolerance for false positives in class 1</b>. In contrast, the <b>threshold for class 2 is 71,8%</b>, i.e., a sharp <b>decrease in tolerance for false positives</b>. Below are some metrics for the optimized algorithm:
 <ul>
-    <li><b>Minimum cost function:</b> R$ 47,596.15, representing 21.1% of total sales, and an improvement of 22% with respecto to the non-optimized algorithm</li>
-    <li><b>Class 1 accuracy:</b> 84.6%</li>
-    <li><b>Class 2 accuracy:</b> 70.2%</li>
-    <li><b>Overall accuracy:</b> 74.1%</li>
+    <li><b>Minimum cost function:</b> R$ 30.065,27, representing 20,04% of total sales, and an improvement of approximately 27% with respecto to the non-optimized algorithm</li>
+    <li><b>Percentage of false positives in class 1:</b> 44,9%</li>
+    <li><b>Percentage of false positives in class 2:</b> 9,4%</li>
+    <li><b>Overall accuracy:</b> 70,98%</li>
 </ul>
 
 </details>
