@@ -6,7 +6,7 @@
     Overview of the project
 </b></h2>
 
-The correct classification of wine quality is extremely important for producers and distributors, as the sale of incorrectly classified wines can result in refunds to the company. For this reason, I developed a machine learning algorithm that can be customized for different business cases. The overall accuracy of the algorithm was almost 74%, assuming that all wine qualities have the same importance, which is not always the case, because if a merchant sells more wines of a specific quality, it is important that they have better classification performance in that category rather than others, reducing the cost of reimbursement. The customization of the algorithm is explained in the section Testing and fine-tuning the model. 
+The correct classification of wine quality is extremely important for producers and distributors, as the sale of incorrectly classified wines can result in refunds to the company. For this reason, I developed a machine learning algorithm that can be customized for different business cases. <b>The overall accuracy of the algorithm was approximately 75%</b>, assuming that all wine qualities have the same importance, which is not always the case, because if a merchant sells more wines of a specific quality, it is important that they have better classification performance in that category rather than others, reducing the cost of reimbursement. The customization of the algorithm is explained in the section Testing and fine-tuning the model. 
 
 I used the Wine Quality Database provided by the article “[Modeling wine preferences by data mining from physicochemical properties](https://www.sciencedirect.com/science/article/abs/pii/S0167923609001377?via%3Dihub).” The researchers used the Support Vector Machine (SVM) algorithm to predict wine quality, but did not achieve good results, with an accuracy of approximately 63%. This shows that predicting wine quality is not an easy task, and may be due to the unbalanced distribution of data, as I discuss in the section “Data Manipulation.”
 
@@ -287,11 +287,11 @@ The model is optimized for the general case, in which customers buy the same qua
 
 <h3><b>Bussiness Case</b></h3>
 
-Suppose there is a group of customers with similar purchasing profiles. In a month, they typically buy <b>1000</b> class 1 wines ($q_{1}$) and <b>1500</b> class 2 wines ($q_{2}$). If the average price of class 1 wines ($p_{1}$) is R$45,00, and class 2 wines ($p_{2}$) is R$70,00, the total revenue is R$150.000,00. With the non-optimized model, we have approximately <b>24,1%</b> false positives for class 1 ($fp_{1}$), and approximately <b>28,9%</b> for class 2 ($fp_{1}$). Considering the following cost function (C):  
+Suppose there is a group of customers with similar purchasing profiles. In a month, they typically buy <b>1000</b> class 1 wines ($q_{1}$) and <b>1500</b> class 2 wines ($q_{2}$). If the average price of class 1 wines ($p_{1}$) is R$45,00, and class 2 wines ($p_{2}$) is R$70,00, the total revenue is R$150.000,00. With the non-optimized model, we have approximately <b>25,9%</b> false positives for class 1 ($fp_{1}$), and approximately <b>23,4%</b> for class 2 ($fp_{1}$). Considering the following cost function (C):  
 <p align = ‘center’>
 $$C = fp_{1} \cdot q_{1} \cdot p_{1} + fp_{2} \cdot q_{2} \cdot p_{2}$$
 </p>
-the loss would be <b>R$ 41.174,35</b>, i.e., <b>27,45%</b> of total revenue.
+the loss would be <b>R$ 36.286,59</b>, i.e., <b>24,19%</b> of total revenue.
 
 Fine tuning consists of finding a threshold for the algorithm that minimizes the cost function. To do this, we can use the different thresholds provided by the ROC curve.
 
@@ -305,12 +305,12 @@ The figure below shows the <b>cost function</b> (top left), the <b>relationship 
     <img src = 'figs-results/fine_tuning.png'/>
 </p>
 
-By optimizing the cost function, we see that the best <b>threshold for class 1 is equal to 28,2%</b>. This means that minimizing the cost function allows for <b>greater tolerance for false positives in class 1</b>. In contrast, the <b>threshold for class 2 is 71,8%</b>, i.e., a sharp <b>decrease in tolerance for false positives</b>. Below are some metrics for the optimized algorithm:
+By optimizing the cost function, we see that the best <b>threshold for class 1 is equal to 40,8%</b>. This means that minimizing the cost function allows for <b>greater tolerance for false positives in class 1</b>. In contrast, the <b>threshold for class 2 is 59,2%</b>, i.e., a sharp <b>decrease in tolerance for false positives</b>. Below are some metrics for the optimized algorithm:
 <ul>
-    <li><b>Minimum cost function:</b> R$ 30.065,27, representing 20,04% of total sales, and an improvement of approximately 27% with respecto to the non-optimized algorithm</li>
-    <li><b>Percentage of false positives in class 1:</b> 44,9%</li>
-    <li><b>Percentage of false positives in class 2:</b> 9,4%</li>
-    <li><b>Overall accuracy:</b> 70,98%</li>
+    <li><b>Minimum cost function:</b> R$ 29.609,87, representing 19,74% of total sales, and an improvement of approximately 18,4% with respecto to the non-optimized algorithm</li>
+    <li><b>Percentage of false positives in class 1:</b> 34,8%</li>
+    <li><b>Percentage of false positives in class 2:</b> 13,3%</li>
+    <li><b>Overall accuracy:</b> 74,83%</li>
 </ul>
 
 </details>
