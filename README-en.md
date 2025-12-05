@@ -269,9 +269,9 @@ Analyzing the graph, we see that the GNB model, with [four features](figs-result
 
 The chosen algorithm, GNB with four features, was evaluated on the test set. The accuracy by wine category and overall was as follows:
 <ul>
-    <li><b>Accuracy in Class 1:</b> 70.5%</li>
-    <li><b>Accuracy in Class 2:</b> 76.4%</li>
-    <li><b>Overall accuracy:</b> 73.8%</li>
+    <li><b>Accuracy in Class 1:</b> 76,6%</li>
+    <li><b>Accuracy in Class 2:</b> 74,1%</li>
+    <li><b>Overall accuracy:</b> 75,2%</li>
 </ul>
 
 Thus, the model was saved with the <i>pickle</i> library for later optimization with business knowledge.
