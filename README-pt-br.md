@@ -258,7 +258,7 @@ Usando a mesma seed para o KFold generator, [treinei](https://github.com/L-Loret
 
 A validação cruzada nos permite visualizar a generalização do modelo no conjunto de treinamento, através do desvio padrão.
 
-Analisando o gráfico, vemos que o modelo GNB, com [quatro features](figs-results/Model_accuracies_different_classes_folds=10.txt), teve a melhor performance. De fato, o GNB e o LDA performaram de modo similar, indicando que as features apresentam comportamento aproximadamente gaussiano, e suas variâncias não são tão distintas, o que explica a performance ruim do QDA.
+Analisando o gráfico, vemos que o modelo LDA, com [seis features](figs-results/Model_accuracies_different_classes_folds=10.txt), teve a melhor performance. De fato, o GNB e o LDA performaram de modo similar, indicando que as features apresentam comportamento aproximadamente gaussiano, e suas variâncias não são tão distintas. O QDA performou mal na classificação dos vinhos de classe 1, porém superou os demais para os vinhos de classe 2, onde provavelmente ocorreu um overfitting. A regressão logística teve comportamento similar ao QDA, indicando que é mais fácil predizer vinhos de classe 2 do que classe 1.
 
 </details>
 
