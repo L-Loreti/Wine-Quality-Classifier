@@ -259,8 +259,6 @@ Cross-validation allows us to visualize the generalization of the model on the t
 
 Analyzing the graph, we see that the LDA model, with [six features](figs-results/Model_accuracies_different_classes_folds=10.txt), had the best performance. In fact, GNB and LDA performed similarly, indicating that the features exhibit approximately Gaussian behavior, and their variances are not so distinct. QDA performed poorly in the classification of class 1 wines, but outperformed the others for class 2 wines, where overfitting probably occurred. Logistic regression behaved similarly to QDA, indicating that it is easier to predict class 2 wines than class 1 wines.
 
-Translated with DeepL.com (free version)
-
 </details>
 
 <details>
